@@ -1,0 +1,310 @@
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-05 화요일 오전 12:52:40 
+====================================================================================================
+#include "save.h"
+
+#include <iostream>
+#include <chrono>
+#include <vector>
+#include <fstream>
+
+using namespace std;
+void save(string_view fileName);
+
+int main()
+{
+
+
+	save("FileName.cpp");
+}
+
+
+
+void save(string_view fileName)
+{
+	//fileName을 읽을 파일로 연다
+	ifstream in{ fileName.data() };
+	if (not in)
+	{
+		cout << fileName << " - 파일 열기 실패" << endl;
+		exit(0);
+	}
+
+	//저장한 파일을 덧붙여 쓰기모드로 연다
+	ofstream out("2024 1학기 STL 월910화78 강의저장.txt", ios::app);
+
+	//저장한 시간을 기록한다
+	out << endl << endl << endl;
+	auto now = chrono::system_clock::now();	//epoch로 부터 증가한 tick
+	auto time = chrono::system_clock::to_time_t(now);	//UTC 시간으로 변환
+	auto lt = localtime(&time); //현지 시간으로 변환
+
+	auto old = out.imbue(locale("ko_KR"));
+	//날짜를 내 마음대로 출력한다
+	out << "====================================================================================================" << endl;
+	out << fileName << put_time(lt, ", 저장시간: %x %A %X ") << endl;
+	out << "====================================================================================================" << endl;
+	out.imbue(old);
+
+	//읽을 파일의 내용을 모두 읽어 쓸 파일에 덧붙여 쓴다
+	//STL 자료구조와 알고리즘을 이용해 본다, 좋은 코딩은 아니다
+	vector<char> v{ istreambuf_iterator<char>{in},{} };
+	copy(v.begin(), v.end(), ostreambuf_iterator<char>{out});
+
+	/*for (char c : v)
+		out << c;*/
+
+}
+
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-05 화요일 오전 12:53:49 
+====================================================================================================
+#include "save.h"
+
+
+int main()
+{
+
+
+	save("FileName.cpp");
+}
+
+
+
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-18 월요일 오후 3:43:09 
+====================================================================================================
+#include "save.h"
+#include <random>
+#include <format>
+#include <print>
+#include <array>
+#include <numeric>
+
+
+//문제 파일 "int100개를메모리그대로저장.txt"에
+// int값 100개가 wrtie 함수를 사용하여 기록되어 있다
+// 파일은 binary 모드로 열어 기록하였다
+// 파일에 기록된 int값 100개를 메모리로 읽어온 후 
+// 화면에 출력하라
+
+
+default_random_engine dre;
+uniform_int_distribution<int> uidChar{ 'a','z' };
+uniform_int_distribution uidNum{ 1,99999 };
+
+class Dog
+{
+	char c{ (char)uidChar(dre) };
+	int num{ uidNum(dre) };
+public:
+	Dog()
+	{
+		//cout << "디폴트 생성" << endl;
+	}
+	friend ostream& operator<<(ostream& os, const Dog& dog)
+	{
+		return os << "글자:" << dog.c << ", 숫자" << dog.num;
+	}
+};
+
+
+
+int main()
+{
+	array<Dog, 100> dogs;		//초기화 안해도 디폴트 생성됨
+
+
+	// 문제 dogs를 binary mode/write 로 파일에 기록하라
+	// 기록된 파일을 읽어서 num값이 가장 큰 dog를 찾아 화면에 출력하라
+
+	ofstream out{ "Dog.txt",ios::binary };
+	out.write((const char*)dogs.data(), sizeof(Dog) * 100);
+
+	for (Dog dog : dogs)
+		cout << dog << endl;
+
+	cout << endl << endl;
+
+
+	array<Dog, 100> dogs_read;
+
+	ifstream in{ "Dog.txt",ios::binary };
+	if (not in)
+	{
+		cout << "파일열기 실패";
+		exit(0);
+	}
+
+	in.read((char*)dogs_read.data(), sizeof(Dog) * 100);
+	for (Dog dog : dogs_read)
+		cout << dog << endl;
+
+
+	//auto pos = max_element(dogs_read.begin(), dogs_read.end());
+	//cout << "최댓값:" << *pos << endl;
+
+
+
+	save("FileName.cpp");
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-18 월요일 오후 3:49:11 
+====================================================================================================
+#include "save.h"
+#include <random>
+#include <format>
+#include <print>
+#include <array>
+#include <numeric>
+
+
+//문제 파일 "int100개를메모리그대로저장.txt"에
+// int값 100개가 wrtie 함수를 사용하여 기록되어 있다
+// 파일은 binary 모드로 열어 기록하였다
+// 파일에 기록된 int값 100개를 메모리로 읽어온 후 
+// 화면에 출력하라
+
+
+default_random_engine dre;
+uniform_int_distribution<int> uidChar{ 'a','z' };
+uniform_int_distribution uidNum{ 1,99999 };
+
+class Dog
+{
+	char c{ (char)uidChar(dre) };
+	int num{ uidNum(dre) };
+public:
+	Dog()
+	{
+		//cout << "디폴트 생성" << endl;
+	}
+	friend ostream& operator<<(ostream& os, const Dog& dog)
+	{
+		return os << "글자:" << dog.c << ", 숫자" << dog.num;
+	}
+};
+
+
+
+int main()
+{
+	array<Dog, 100> dogs;		//초기화 안해도 디폴트 생성됨
+
+
+	// 문제 dogs를 binary mode/write 로 파일에 기록하라
+	// 기록된 파일을 읽어서 num값이 가장 큰 dog를 찾아 화면에 출력하라
+
+	ofstream out{ "Dog.txt",ios::binary };
+	out.write((const char*)dogs.data(), sizeof(Dog) * 100);
+
+	for (Dog dog : dogs)
+		cout << dog << endl;
+
+	cout << endl << endl;
+
+
+	array<Dog, 100> dogs_read;
+
+	
+	for (Dog dog : dogs_read)
+		cout << dog << endl;
+
+
+	//auto pos = max_element(dogs_read.begin(), dogs_read.end());
+	//cout << "최댓값:" << *pos << endl;
+
+
+
+	save("FileName.cpp");
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-18 월요일 오후 4:06:22 
+====================================================================================================
+#include "save.h"
+#include <random>
+#include <format>
+#include <print>
+#include <array>
+#include <numeric>
+
+
+//문제 파일 "int100개를메모리그대로저장.txt"에
+// int값 100개가 wrtie 함수를 사용하여 기록되어 있다
+// 파일은 binary 모드로 열어 기록하였다
+// 파일에 기록된 int값 100개를 메모리로 읽어온 후 
+// 화면에 출력하라
+
+
+default_random_engine dre;
+uniform_int_distribution<int> uidChar{ 'a','z' };
+uniform_int_distribution uidNum{ 1,99999 };
+
+class Dog
+{
+	char c{ (char)uidChar(dre) };
+	int num{ uidNum(dre) };
+public:
+	Dog()
+	{
+		//cout << "디폴트 생성" << endl;
+	}
+	friend ostream& operator<<(ostream& os, const Dog& dog)
+	{
+		return os << "글자:" << dog.c << ", 숫자" << dog.num;
+	}
+};
+
+
+
+int main()
+{
+	array<Dog, 100> dogs;		//초기화 안해도 디폴트 생성됨
+
+
+	// 문제 dogs를 binary mode/write 로 파일에 기록하라
+	// 기록된 파일을 읽어서 num값이 가장 큰 dog를 찾아 화면에 출력하라
+
+	ofstream out{ "Dog.txt",ios::binary };
+	out.write((const char*)dogs.data(), sizeof(Dog) * 100);
+
+	for (Dog dog : dogs)
+		cout << dog << endl;
+
+	cout << endl << endl;
+
+
+	array<Dog, 100> dogs_read;
+
+	ifstream in{ "Dog.txt",ios::binary };
+	if (not in)
+	{
+		cout << "파일열기 실패";
+		exit(0);
+	}
+
+	in.read((char*)dogs_read.data(), sizeof(Dog) * 100);
+	for (Dog dog : dogs_read)
+		cout << dog << endl;
+
+
+	//auto pos = max_element(dogs_read.begin(), dogs_read.end());
+	//cout << "최댓값:" << *pos << endl;
+
+
+
+	save("FileName.cpp");
+}
