@@ -524,3 +524,108 @@ int main()
 
 
 // dogs.data() == 시작주소
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-19 화요일 오후 4:09:03 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+//-----------------------------------------------------------------
+// 2024.03.19 1학기 stl 화 5~6 목 5~6                       (3주 2)
+// 
+// 실행 파일의 메모리 영역 - stack code data free store(heap)
+//-----------------------------------------------------------------
+
+void f()
+{
+	int num{123};
+
+	cout << "나는 함수 f 입니다" << endl;
+	cout << "f()의 변수 num " << addressof(num) << endl;
+}
+
+
+
+int gnum{};
+string s{"전역 스트링"};
+
+
+
+
+
+
+int main()
+{
+	string s{ "메모리 관찰" };
+	cout << "지역 객체 string - " << addressof(s) << endl;
+
+	array<int, 10> a;
+	cout << "지역 객체 array<int,10> " << endl;
+	for (int i = 0; i < a.size(); ++i)
+		cout << "a[" << i << "]" << addressof(a[i]) << endl;
+
+	f();
+
+
+	cout << "전역 string - " << ::s << endl;
+	cout << addressof(::s) << endl;
+	cout << "전역 int - " << endl;
+	cout << addressof(gnum) << endl;
+
+	cout << endl << endl;
+	cout << "함수가 기록되는 메모리 영역 - CODE segment, TEXT segment" << endl;
+	cout << "main() - " << addressof(main) << endl;
+	cout << "f() - " << addressof(f) << endl;
+	cout << "save() - " << addressof(save) << endl;
+
+
+	string* p = new string[2]{ "동적할당한 string1","동적할당한 string2" };
+	cout << endl << endl;
+
+	cout << p[0]<< " - " << addressof(p[0]) << endl;
+	cout << p[1]<< " - " << addressof(p[1]) << endl;
+
+
+	save("FileName.cpp");
+}
+
+
+
+// 실제로 실행해보면 메모리 위치가 다르다
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-19 화요일 오후 5:21:13 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+//-----------------------------------------------------------------
+// 2024.03.19 1학기 stl 화 5~6 목 5~6                       (3주 2)
+// 
+// 실행 파일의 메모리 영역 - stack code data free store(heap)
+//-----------------------------------------------------------------
+
+
+// 문제 프로그램에서 이용할 수 있는 전역변수의 최대 크기는?
+
+int num[100000000]{};	//초기화 하지 않은 data == default로 초기화한 data
+//int num[100000000]{1};  //num[0]만 초기화 할 수 없다, 400mb이미지를 복사해야한다
+
+int main(){
+	num[99999999] = 1234567890;
+	cout << num[99999999] << endl;
+	cout << "키를 누르면 프로그램 끝 - ";
+	char c;
+	cin >> c;
+
+	
+
+	save("FileName.cpp");
+}
+	
+
+
+// 실제로 실행해보면 메모리 위치가 다르다	
