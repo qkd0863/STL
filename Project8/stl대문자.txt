@@ -1,0 +1,29 @@
+#INCLUDE "SAVE.H"
+#INCLUDE <STRING>
+#INCLUDE <ARRAY>
+#INCLUDE <NUMERIC>
+#INCLUDE <MEMORY>
+#INCLUDE <ALGORITHM>
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 STL 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+
+//문제 "FILENAME.CPP"의 모든 소문자를 대문자로 바꿔 "STL대문자.TXT"에 저장하라
+
+INT MAIN()
+{
+	//SAVE("FILENAME.CPP");
+	
+
+	IFSTREAM IN{ "FILENAME.CPP"};
+	IF (NOT IN)
+		RETURN 33333333;
+
+	OFSTREAM OUT{ "STL대문자.TXT"};
+	
+	TRANSFORM(ISTREAMBUF_ITERATOR<CHAR>{IN}, {}, OSTREAMBUF_ITERATOR<CHAR>{OUT}, ::TOUPPER);
+		
+}

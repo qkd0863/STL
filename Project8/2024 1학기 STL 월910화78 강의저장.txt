@@ -839,3 +839,244 @@ int main()
 // 메모리를 여러번 해제함 - dangling 프로그램이 바로 죽는다
 // 지역을 벗어나면 반드시 소멸한다 - 연결시켜줘야한다
 // 예외 처리가되면 소멸이 안될 수 있다
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-26 화요일 오후 3:50:34 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+#include <numeric>
+#include <memory>
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 stl 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+
+
+class Dog
+{
+public:
+	Dog() { cout << "생성" << endl; }
+	~Dog() { cout << "소멸" << endl; }
+};
+
+int main()
+{
+	save("FileName.cpp");
+	unique_ptr<Dog[]> p = make_unique<Dog[]>(3);
+
+}
+
+
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-26 화요일 오후 4:08:54 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+#include <numeric>
+#include <memory>
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 stl 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+
+//문제 "FileName.cpp"의 모든 소문자를 대문자로 바꿔 "stl대문자.txt"에 저장하라
+
+int main()
+{
+	save("FileName.cpp");
+	
+
+	ifstream in{ "FileName.cpp",ios::binary};
+	if (not in)
+		return 33333333;
+
+	ofstream out{ "stl대문자.txt",ios::binary };
+	char c;
+	
+	while (in.read(&c, sizeof(char)))
+		out << (c = toupper(c));	
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-26 화요일 오후 4:12:39 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+#include <numeric>
+#include <memory>
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 stl 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+
+//문제 "FileName.cpp"의 모든 소문자를 대문자로 바꿔 "stl대문자.txt"에 저장하라
+
+int main()
+{
+	save("FileName.cpp");
+	
+
+	ifstream in{ "FileName.cpp"};
+	if (not in)
+		return 33333333;
+
+	ofstream out{ "stl대문자.txt"};
+	char c;
+	
+	in >> noskipws;		// 공백을 건너뛰지 말아라
+	while (in >> c)
+	{
+		c = toupper(c);
+		cout << c;
+	}
+		
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-26 화요일 오후 4:26:26 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+#include <numeric>
+#include <memory>
+#include <algorithm>
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 stl 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+
+//문제 "FileName.cpp"의 모든 소문자를 대문자로 바꿔 "stl대문자.txt"에 저장하라
+
+int main()
+{
+	save("FileName.cpp");
+	
+
+	ifstream in{ "FileName.cpp"};
+	if (not in)
+		return 33333333;
+
+	ofstream out{ "stl대문자.txt"};
+	
+	transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out}, [](char c) {return c = toupper(c);});
+		
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-26 화요일 오후 5:15:33 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+#include <numeric>
+#include <memory>
+#include <algorithm>
+#include <random>
+#include <print>
+
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 stl 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+//문제 [10000, 99999] 범위의 값을 갖는 int 100개를 만들어라
+// qsort를 사용하여 오름차순으로 정렬하시오
+// 정렬한 결과를 화면에 출력하세요
+
+
+default_random_engine dre;
+uniform_int_distribution uidNum{ 1,1000 };
+
+
+int static compare(const void* a, const void* b)
+{
+	return *(int*)a - *(int*)b;
+}
+
+
+int main()
+{
+	(*save)("FileName.cpp");	//함수 포인터 참조
+	
+	array<int,100> num;
+
+	for (int& n : num)
+		n = uidNum(dre);	
+	
+	//qsort로 정렬 - generic 함수라서 여기서 시작
+
+	qsort(num.data(), num.size(), sizeof(int), [](const void* a, const void* b){
+		return *(int*)a - *(int*)b;		//음수,0,양수
+		});
+
+	qsort(num.data(), num.size(), sizeof(int), compare);
+
+	for (int n : num)
+		print("{:8}", n);
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-03-26 화요일 오후 5:17:44 
+====================================================================================================
+#include "save.h"
+#include <string>
+#include <array>
+#include <numeric>
+#include <memory>
+#include <algorithm>
+#include <random>
+#include <print>
+
+//-----------------------------------------------------------------
+// 2024.03.26 1학기 stl 화 5~6 목 5~6                       (4주 2)
+// 
+// 
+//-----------------------------------------------------------------
+
+//문제 [10000, 99999] 범위의 값을 갖는 int 100개를 만들어라
+// qsort를 사용하여 오름차순으로 정렬하시오
+// 정렬한 결과를 화면에 출력하세요
+
+
+default_random_engine dre;
+uniform_int_distribution uidNum{ 1,1000 };
+
+
+int static compare(const void* a, const void* b)
+{
+	return *(int*)a - *(int*)b;
+}
+
+
+int main()
+{
+	save("FileName.cpp");	//함수 포인터 참조
+	
+	auto a = compare;
+	cout << typeid(a).name() << endl;
+
+}

@@ -1,1 +1,2 @@
 메모리 할당량이 커지면 메모리가 깨짐
+transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out}, ::toupper);
