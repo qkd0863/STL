@@ -1,18 +1,15 @@
-#include <string>
 #include <array>
-#include <numeric>
-#include <memory>
-#include <algorithm>
-#include <random>
-#include <print>
-#include <functional>
+#include <list>
 #include "String.h"
 #include "save.h"
 
 //-----------------------------------------------------------------
-// 2024.04.2 1학기 stl				                        (5주 2)
+// 2024.04.8 1학기 stl				                        (6주 1)
 // 
+// STL - Container
 // 
+// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
+// 오브젝트 - 클래스로 만들어진 객체
 //-----------------------------------------------------------------
 
 extern bool 관찰;
@@ -20,23 +17,20 @@ extern bool 관찰;
 
 int main()
 {
-	//save("FileName.cpp");
-	
-	array<String, 5> a{ "dsadsadasdad","sadasfsafasd","wqewqreqe","wqewqrqwwe","xzczxcvzxc" };
-	
-	
-	// sort를 사용하여 a가 관리하는 String을 오름차순으로 정렬한 후 출력하라
+	save("FileName.cpp");
+	array<String, 100>a;
 
-	관찰 = true;
-	for (const String& s : a)
-		sort(s.getMem(), s.getMem() + s.getLen());
-	관찰 = false;
+	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
+	//a를 길이 오름차순으로 정렬하라
+	//화면에 a를 출력하라
 
-	for (String& s : a)
-		cout << s << endl;
-
+	ifstream in{ "FileName.cpp" };
+	if (not in)
+		return 123456;
+	for (int i = 0; i < 100; ++i);
+		//in >> a[i];
+	
+		
 }
 
-
-
-//String t = s;		//디폴트 복사생성자를 만들 수 없다 - 스마트포인터는 복사생성이 불가
+//syntactic sugar
