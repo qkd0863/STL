@@ -43,6 +43,9 @@ public:
 		return os;
 	}
 
+	// 2024 4 9 
+	friend std::istream& operator>>(std::istream& is, String& s);
+
 private:
 	static size_t uid;
 };

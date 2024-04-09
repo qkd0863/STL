@@ -1,36 +1,30 @@
-#include <array>
-#include <list>
+#include <vector>
+#include <numeric>
+#include <algorithm>
 #include "String.h"
 #include "save.h"
 
 //-----------------------------------------------------------------
-// 2024.04.8 1학기 stl				                        (6주 1)
+// 2024.04.9 1학기 stl				                        (6주 2)
 // 
-// STL - Container
-// 
-// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
-// 오브젝트 - 클래스로 만들어진 객체
+// vector - dynamic array
 //-----------------------------------------------------------------
 
 extern bool 관찰;
 
 
-int main()
+
+int main()	
 {
 	save("FileName.cpp");
-	array<String, 100>a;
 
-	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
-	//a를 길이 오름차순으로 정렬하라
-	//화면에 a를 출력하라
 
-	ifstream in{ "FileName.cpp" };
-	if (not in)
-		return 123456;
-	for (int i = 0; i < 100; ++i);
-		//in >> a[i];
+	//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+	//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
 	
-		
-}
+	vector<String> v{ istream_iterator<String>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
 
-//syntactic sugar
+	sort(v.begin(), v.end(), [](const String& a,const String& b) {return a.getLen()< b.getLen(); });
+	for (const String& s : v)
+		cout << s << endl;
+}

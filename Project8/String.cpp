@@ -101,3 +101,19 @@ char* String::getMem() const
 {
 	return p.get();
 }
+
+
+//2024 4 9
+std::istream& operator>>(std::istream& is, String& s)
+{
+	std::string ts;
+	is >> ts;
+
+	s.len = ts.size();
+	s.p = std::make_unique<char[]>(s.len);
+	memcpy(s.p.get(), ts.data(), s.len);
+
+
+
+	return is;
+}

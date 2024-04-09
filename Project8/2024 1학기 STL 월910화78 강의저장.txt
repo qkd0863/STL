@@ -1490,3 +1490,173 @@ int main()
 }
 
 //syntactic sugar
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 3:42:03 
+====================================================================================================
+#include <array>
+#include <list>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// STL - Container
+// 
+// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
+// 오브젝트 - 클래스로 만들어진 객체
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+int main()
+{
+	save("FileName.cpp");
+	array<String, 100>a;
+
+	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
+	//a를 길이 오름차순으로 정렬하라
+	//화면에 a를 출력하라
+
+	ifstream in{ "FileName.cpp" };
+	if (not in)
+		return 123456;
+	for (int i = 0; i < 100; ++i)
+		in >> a[i];			//operator>>(in, a[i]);
+	
+	sort(a.begin(), a.end(), [](const String& a,const String& b) {return a.getLen() < b.getLen(); });
+	
+	for (const String& s : a)
+		cout << s << endl;
+
+
+		
+}
+
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 4:13:21 
+====================================================================================================
+#include <vector>
+#include <random>
+#include <print>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+default_random_engine dre;
+uniform_int_distribution uid{ 1,10000 };
+
+int main()	
+{
+	save("FileName.cpp");
+
+	// 예제 int값 num을 입력받아 v에 [1,10000]값을 갖는 int num개를 추가
+	// 오름차순 정렬한다
+	// 값을 출력한다
+	
+	while (1)
+	{
+		vector<int>v;
+		int num;
+
+		cout << "숫자 입력";
+		cin >> num;
+
+		for (int i = 0; i < num; ++i)
+			v.push_back(uid(dre));
+
+		sort(v.begin(), v.end());
+
+		// 앞에서 100개만
+		for (int n : v | views::take(100))
+			print("{:8}", n);
+	}
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 5:06:10 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+	//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
+	
+	vector<int> v{ istream_iterator<int>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
+
+	int sum = accumulate(v.begin(), v.end(), 0);
+	cout << "합계 " << sum << endl;
+	cout << "평균 " << format("{:.2f}", sum / (double)v.size()) << endl;
+	
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 5:19:19 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+	//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
+	
+	vector<String> v{ istream_iterator<String>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
+
+	sort(v.begin(), v.end(), [](const String& a,const String& b) {return a.getLen()< b.getLen(); });
+	for (const String& s : v)
+		cout << s << endl;
+}
