@@ -23,3 +23,8 @@ Algorithm
 2. Modifying
 3. Sort
 numeric
+
+vector에 얼마나 담을수 있나?
+
+vector resize에서 복사생성이 일어나는 이유 - 원본이 훼손되면 안돼기 때문에 이동이 아니라 복사가 일어난다
+예외상황이 안일어난다고 알려주면 이동이 일어난다 - noexcept

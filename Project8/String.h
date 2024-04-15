@@ -26,8 +26,9 @@ public:
 
 
 	// 이동생성과 이동할당 2024 4 2
-	String(String&&);
-	String& operator=(String&&);
+	// 예외를 던지지 않음을 보장 noexcept 2024 4 15
+	String(String&&)noexcept;
+	String& operator=(String&&)noexcept;
 
 
 

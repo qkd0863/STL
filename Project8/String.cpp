@@ -68,14 +68,15 @@ String& String::operator=(const String& rhs)
 
 
 // 이동생성과 이동할당 2024 4 2
-String::String(String&& other) :len(other.len), id{ ++uid }
+// 예외를 던지지 않음을 보장 noexcept 2024 4 15
+String::String(String&& other)noexcept :len(other.len), id{ ++uid }
 {
 	p.reset(other.p.release());
 	if (관찰)
 		std::cout << "[" << id << "] - 이동생성, 길이 - " << len << ", 주소 - " << (void*)p.get() << std::endl;
 }
 
-String& String::operator=(String&& other)
+String& String::operator=(String&& other)noexcept
 {
 	if (this == &other)
 		return *this;
