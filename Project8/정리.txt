@@ -2,3 +2,29 @@
 transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out}, ::toupper);
 
 4월 23 화요일 기말
+
+
+
+
+Container (자료구조)
+1. Sequence
+-array<T,N>		크기 고정
+-vector<T>		/한 방향 확장
+-deque<T>		//덱 , 양 방향 확장
+-forward_list<T>		
+-list<T>
+2. Associative
+3. unordered Associative
+stack queue flatset map
+
+
+Algorithm
+1. Non-Modifying
+2. Modifying
+3. Sort
+numeric
+
+vector에 얼마나 담을수 있나?
+
+vector resize에서 복사생성이 일어나는 이유 - 원본이 훼손되면 안돼기 때문에 이동이 아니라 복사가 일어난다
+예외상황이 안일어난다고 알려주면 이동이 일어난다 - noexcept

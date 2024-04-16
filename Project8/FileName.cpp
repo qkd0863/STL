@@ -1,42 +1,41 @@
-#include <string>
-#include <array>
-#include <numeric>
-#include <memory>
-#include <algorithm>
-#include <random>
-#include <print>
-#include <functional>
+#include <deque>
+#include <vector>
+#include <list>
 #include "String.h"
 #include "save.h"
 
 //-----------------------------------------------------------------
-// 2024.04.2 1학기 stl				                        (5주 2)
-// 
-// 
+// 2024.04.16 1학기 stl				                        (7주 2)
+//  
+// deque - vecto와 list의 중간형태를 띄는 자료구조다
 //-----------------------------------------------------------------
 
 extern bool 관찰;
 
-
-int main()
+class Test
 {
-	//save("FileName.cpp");
-	
-	array<String, 5> a{ "dsadsadasdad","sadasfsafasd","wqewqreqe","wqewqrqwwe","xzczxcvzxc" };
-	
-	
-	// sort를 사용하여 a가 관리하는 String을 오름차순으로 정렬한 후 출력하라
+	char x[4096];
+};
 
-	관찰 = true;
-	for (const String& s : a)
-		sort(s.getMem(), s.getMem() + s.getLen());
-	관찰 = false;
-
-	for (String& s : a)
-		cout << s << endl;
-
-}
-
-
-
-//String t = s;		//디폴트 복사생성자를 만들 수 없다 - 스마트포인터는 복사생성이 불가
+int main()	
+{
+	save("FileName.cpp");
+	//vector<Test> v;  //1574803
+	//deque<Test> v;   //2500000
+	list<Test>v;	   //2500000
+	while (1)
+	{
+		try
+		{
+			v.push_back(Test{});
+		}
+		catch (...)
+		{
+			cout << "끝" << endl;
+			cout << v.size() << endl;
+			break;
+		}
+		if (!(v.size() % 100000))
+			cout << v.size() << endl;
+	}
+}                

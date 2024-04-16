@@ -2,6 +2,8 @@
 // String.h		STL 동작을 관찰하기 위한 클래스
 // 
 // 2024 4/2 시작
+// 2024 4 15 noexecpt
+// 2024 4 16 operator==
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 #pragma once
@@ -26,8 +28,9 @@ public:
 
 
 	// 이동생성과 이동할당 2024 4 2
-	String(String&&);
-	String& operator=(String&&);
+	// 예외를 던지지 않음을 보장 noexcept 2024 4 15
+	String(String&&)noexcept;
+	String& operator=(String&&)noexcept;
 
 
 
@@ -42,6 +45,13 @@ public:
 			os << str.p.get()[i];
 		return os;
 	}
+
+	// 2024 4 9 
+	friend std::istream& operator>>(std::istream& is, String& s);
+
+	// 2024 4 16 operator==
+	bool operator==(const String& rhs)const;
+	
 
 private:
 	static size_t uid;

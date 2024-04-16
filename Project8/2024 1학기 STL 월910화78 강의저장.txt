@@ -1377,3 +1377,716 @@ int main()
 
 
 //String t = s;		//디폴트 복사생성자를 만들 수 없다 - 스마트포인터는 복사생성이 불가
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-08 월요일 오후 6:37:28 
+====================================================================================================
+#include <array>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.8 1학기 stl				                        (6주 1)
+// 
+// STL - Container
+// 
+// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
+// 오브젝트 - 클래스로 만들어진 객체
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+int main()
+{
+	save("FileName.cpp");
+	array<int, 10>a{1,3,5,7,9,2,4,6,8,10};
+	for (array<int, 10>::iterator p = a.begin(); p != a.end(); ++p)
+		cout << p.operator*() << endl;
+
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-08 월요일 오후 6:56:52 
+====================================================================================================
+#include <array>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.8 1학기 stl				                        (6주 1)
+// 
+// STL - Container
+// 
+// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
+// 오브젝트 - 클래스로 만들어진 객체
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+int main()
+{
+	save("FileName.cpp");
+	array<int, 10>a{ 1,3,5,7,9,2,4,6,8,10 };
+
+	int num;
+	cin >> num;
+	try 
+	{
+		a.at(num);//경계가 맞나 검사한다
+	}
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+	}
+		
+}
+
+//syntactic sugar
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-08 월요일 오후 7:02:42 
+====================================================================================================
+#include <array>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.8 1학기 stl				                        (6주 1)
+// 
+// STL - Container
+// 
+// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
+// 오브젝트 - 클래스로 만들어진 객체
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+int main()
+{
+	save("FileName.cpp");
+	array<String, 100>a;
+
+	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
+	//a를 길이 오름차순으로 정렬하라
+	//화면에 a를 출력하라
+
+	ifstream in{ "FileName.cpp" };
+	if (not in)
+		return 123456;
+	for (int i = 0; i < 100; ++i);
+		//in >> a[i];
+	
+		
+}
+
+//syntactic sugar
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 3:42:03 
+====================================================================================================
+#include <array>
+#include <list>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// STL - Container
+// 
+// Containers are objects that store other objects 컨테이너는 다른 오브젝트를 저장하는 오브젝트
+// 오브젝트 - 클래스로 만들어진 객체
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+int main()
+{
+	save("FileName.cpp");
+	array<String, 100>a;
+
+	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
+	//a를 길이 오름차순으로 정렬하라
+	//화면에 a를 출력하라
+
+	ifstream in{ "FileName.cpp" };
+	if (not in)
+		return 123456;
+	for (int i = 0; i < 100; ++i)
+		in >> a[i];			//operator>>(in, a[i]);
+	
+	sort(a.begin(), a.end(), [](const String& a,const String& b) {return a.getLen() < b.getLen(); });
+	
+	for (const String& s : a)
+		cout << s << endl;
+
+
+		
+}
+
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 4:13:21 
+====================================================================================================
+#include <vector>
+#include <random>
+#include <print>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+default_random_engine dre;
+uniform_int_distribution uid{ 1,10000 };
+
+int main()	
+{
+	save("FileName.cpp");
+
+	// 예제 int값 num을 입력받아 v에 [1,10000]값을 갖는 int num개를 추가
+	// 오름차순 정렬한다
+	// 값을 출력한다
+	
+	while (1)
+	{
+		vector<int>v;
+		int num;
+
+		cout << "숫자 입력";
+		cin >> num;
+
+		for (int i = 0; i < num; ++i)
+			v.push_back(uid(dre));
+
+		sort(v.begin(), v.end());
+
+		// 앞에서 100개만
+		for (int n : v | views::take(100))
+			print("{:8}", n);
+	}
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 5:06:10 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+	//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
+	
+	vector<int> v{ istream_iterator<int>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
+
+	int sum = accumulate(v.begin(), v.end(), 0);
+	cout << "합계 " << sum << endl;
+	cout << "평균 " << format("{:.2f}", sum / (double)v.size()) << endl;
+	
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-09 화요일 오후 5:19:19 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.9 1학기 stl				                        (6주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+	//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
+	
+	vector<String> v{ istream_iterator<String>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
+
+	sort(v.begin(), v.end(), [](const String& a,const String& b) {return a.getLen()< b.getLen(); });
+	for (const String& s : v)
+		cout << s << endl;
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-15 월요일 오후 5:27:59 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.15 1학기 stl				                        (7주 1)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+	//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
+	
+	vector<String> v{ istream_iterator<String>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
+
+	sort(v.begin(), v.end(), [](const String& a,const String& b) {return a.getLen()< b.getLen(); });
+	for (const String& s : v)
+		cout << s << endl;
+}
+
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-15 월요일 오후 6:09:46 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.15 1학기 stl				                        (7주 1)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	관찰 = true;
+	vector<String>v;
+	
+	v.push_back("1");
+	cout << endl << endl;
+	v.push_back("22");
+	cout << endl << endl;
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-15 월요일 오후 6:27:04 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.15 1학기 stl				                        (7주 1)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	// 문제 FileName.cpp 에 있는 알파벳 소문자의 출현 횟수를 다음과 같이 출력하라
+	// a - 20
+	// b - 3
+	// c - 1
+	// ...
+	// z - 2
+
+	
+	array<int, 26> alpha;
+
+	ifstream in{ "FileName.cpp" };
+	if (not in)
+		return 123;
+
+	char c;
+
+	for (int& n : alpha)
+		n = 0;
+
+	while (in.read(&c, sizeof(char)))
+	{
+		if (static_cast<int>(c)>=97 && static_cast<int>(c)<=122)
+		alpha[static_cast<int>(c)-97] += 1;
+	}
+
+	for (int i = 0; i < 26; i++)
+	{
+		cout << char(static_cast<int>(i + 97)) << " - " << alpha[i] << endl;
+	}
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-15 월요일 오후 6:43:00 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.15 1학기 stl				                        (7주 1)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	// 문제 FileName.cpp 에 있는 알파벳 소문자의 출현 횟수를 다음과 같이 출력하라
+	// a - 20
+	// b - 3
+	// c - 1
+	// ...
+	// z - 2
+	//islower() - 알파벳 소문자 판별
+	
+	array<int, 26> alpha{};//{} - 초기화
+	//vector<int> a(26) - (26)으로 초기화 해야한다
+
+	ifstream in{ "FileName.cpp" };
+	if (not in)
+		return 123;
+
+	char c;
+
+	//while(in>>c)
+	while (in.read(&c, sizeof(char)))
+	{
+		
+		//if (static_cast<int>(c)>=97 && static_cast<int>(c)<=122)
+		if (iswlower(c))
+			alpha[static_cast<int>(c)-97] += 1;// alpha[c - 'a'] += 1;
+	}
+
+	for (int i = 0; i < 26; i++)
+	{
+		cout << char(i + 97) << " - " << alpha[i] << endl;
+	}
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-15 월요일 오후 7:04:19 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.15 1학기 stl				                        (7주 1)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	vector<int> v{ 1,2,3,4,5 };
+	//문제 v에서 3을 제거하고 출력하라
+	// erase-remove idiom
+
+	//auto p = remove(v.begin(), v.end(), 3);
+	//v.erase(p, v.end());
+
+	v.erase(remove(v.begin(), v.end(), 3), v.end());
+
+
+	for (int num : v)
+		cout << num << ' ' << endl;		// 1 2 4 5 5    한칸씩 땡긴다
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-16 화요일 오후 3:35:31 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.16 1학기 stl				                        (7주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	vector<int> v{ 1,2,3,4,5 };
+	//문제 v에서 3을 제거하고 출력하라		c++20 부터는 erase(v, 3);
+	// erase-remove idiom
+	
+	//auto p = remove(v.begin(), v.end(), 3);
+	//v.erase(p, v.end());
+
+	v.erase(remove(v.begin(), v.end(), 3), v.end());
+
+		
+	for (int num : v)
+		cout << num << ' ' << endl;		// 1 2 4 5 5    한칸씩 땡긴다
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-16 화요일 오후 3:55:16 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include <print>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.16 1학기 stl				                        (7주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	vector<int> v(200);
+	//문제 v에서 홀수를 제거하라
+
+	iota(v.begin(), v.end(), 1);
+	erase_if(v, [](int num) {return num % 2; });
+	
+		
+
+	for (int num : v)
+		print("{:8}", num);
+	
+		
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-16 화요일 오후 4:17:14 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include <print>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.16 1학기 stl				                        (7주 2)
+// 
+// vector - dynamic array
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	vector<String> v{ "1","2","3","4","5","3","33"};
+	
+	//문제 v에서 "3"을 삭제하라
+
+	//erase(v, "3");
+	erase_if(v, [](String s) {return s == "3"; });
+
+	for (const String& s : v)
+		cout << s << endl;
+
+		
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-16 화요일 오후 4:39:21 
+====================================================================================================
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <array>
+#include <print>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.16 1학기 stl				                        (7주 2)
+// 
+// vector - dynamic array - 중간위치에서 원소 추가/삭제 지양
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+	
+	list<String> v{ "1","22","4444","55555" };
+	auto p = v.begin();
+	++p;
+	++p;
+	관찰 = true;
+	v.emplace(p, "333");
+	//v.insert(p, "333");
+	관찰 = false;
+	for (const String& s : v)
+		cout << s << endl;
+
+		
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-04-16 화요일 오후 5:19:05 
+====================================================================================================
+#include <deque>
+#include <vector>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.16 1학기 stl				                        (7주 2)
+//  
+// deque - vecto와 list의 중간형태를 띄는 자료구조다
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+class Test
+{
+	char x[4096];
+};
+
+int main()	
+{
+	save("FileName.cpp");
+	//vector<Test> v;  //1574803
+	//deque<Test> v;   //2500000
+	list<Test>v;	   //2500000
+	while (1)
+	{
+		try
+		{
+			v.push_back(Test{});
+		}
+		catch (...)
+		{
+			cout << "끝" << endl;
+			cout << v.size() << endl;
+			break;
+		}
+		if (!(v.size() % 100000))
+			cout << v.size() << endl;
+	}
+}                
