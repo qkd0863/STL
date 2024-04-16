@@ -1,14 +1,16 @@
+#include <algorithm>		//2024 4 16
 #include "String.h"
 //-----------------------------------------------------------------------------------------------------------------------------------------
 // String.cpp		STL 동작을 관찰하기 위한 클래스
 // 
 // 2024 4/2 시작
+// // 2024 4 15 noexecpt
+// 2024 4 16 operator==
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
-#include "String.h"
 
 // 관찰용 변수 추가 2024 4 2
 bool 관찰{ false };		//관찰을 원하면 true로 바꾸자
@@ -101,6 +103,14 @@ size_t String::getLen() const
 char* String::getMem() const
 {
 	return p.get();
+}
+
+//2024 4 16 operator==
+bool String::operator==(const String& rhs) const
+{
+	if (len != rhs.len)
+		return false;
+	return std::equal(p.get(), p.get() + len, rhs.p.get());
 }
 
 

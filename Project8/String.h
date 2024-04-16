@@ -2,6 +2,8 @@
 // String.h		STL 동작을 관찰하기 위한 클래스
 // 
 // 2024 4/2 시작
+// 2024 4 15 noexecpt
+// 2024 4 16 operator==
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 #pragma once
@@ -46,6 +48,10 @@ public:
 
 	// 2024 4 9 
 	friend std::istream& operator>>(std::istream& is, String& s);
+
+	// 2024 4 16 operator==
+	bool operator==(const String& rhs)const;
+	
 
 private:
 	static size_t uid;

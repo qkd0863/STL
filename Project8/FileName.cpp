@@ -1,34 +1,41 @@
+#include <deque>
 #include <vector>
-#include <numeric>
-#include <algorithm>
-#include <array>
+#include <list>
 #include "String.h"
 #include "save.h"
 
 //-----------------------------------------------------------------
-// 2024.04.15 1학기 stl				                        (7주 1)
-// 
-// vector - dynamic array
+// 2024.04.16 1학기 stl				                        (7주 2)
+//  
+// deque - vecto와 list의 중간형태를 띄는 자료구조다
 //-----------------------------------------------------------------
 
 extern bool 관찰;
 
-
+class Test
+{
+	char x[4096];
+};
 
 int main()	
 {
 	save("FileName.cpp");
-
-	vector<int> v{ 1,2,3,4,5 };
-	//문제 v에서 3을 제거하고 출력하라
-	// erase-remove idiom
-
-	//auto p = remove(v.begin(), v.end(), 3);
-	//v.erase(p, v.end());
-
-	v.erase(remove(v.begin(), v.end(), 3), v.end());
-
-
-	for (int num : v)
-		cout << num << ' ' << endl;		// 1 2 4 5 5    한칸씩 땡긴다
-}
+	//vector<Test> v;  //1574803
+	//deque<Test> v;   //2500000
+	list<Test>v;	   //2500000
+	while (1)
+	{
+		try
+		{
+			v.push_back(Test{});
+		}
+		catch (...)
+		{
+			cout << "끝" << endl;
+			cout << v.size() << endl;
+			break;
+		}
+		if (!(v.size() % 100000))
+			cout << v.size() << endl;
+	}
+}                
