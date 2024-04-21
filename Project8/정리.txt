@@ -28,3 +28,87 @@ vector에 얼마나 담을수 있나?
 
 vector resize에서 복사생성이 일어나는 이유 - 원본이 훼손되면 안돼기 때문에 이동이 아니라 복사가 일어난다
 예외상황이 안일어난다고 알려주면 이동이 일어난다 - noexcept
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+문제 풀이
+
+
+//문제 int 100개를 저장하는데 메모리 bit값을 그대로 저장하자
+//int 100개 = sizeof(int) * 100 = 400 bytes
+
+array<int, 100 >a{};
+iota(a.begin(), a.end(), 1);		순서대로 숫자를 채우는 함수 - iota(시작주소, 끝주소, 시작숫자)	헤더 numeric
+ofstream out{ "int100개를메모리그대로저장.txt",ios::binary };
+out.write((const char*)a.data(), a.size() * sizeof(int));
+
+
+
+
+
+//문제 파일 "int100개를메모리그대로저장.txt"에
+// int값 100개가 wrtie 함수를 사용하여 기록되어 있다
+// 파일은 binary 모드로 열어 기록하였다
+// 파일에 기록된 int값 100개를 메모리로 읽어온 후 
+// 화면에 출력하라
+
+ifstream in{"int100개를메모리그대로저장.txt" ,ios::binary };
+	if (not in)
+	{
+		cout << "파일열기 실패";
+		exit(0);
+	}
+		
+	array<int, 100> a;		//Dog로 바꿔서 해보자
+	in.read((char*)a.data(), 400);
+	for (int num : a)
+		cout << num << endl;
+		
+
+
+
+
+// 문제 dogs를 binary mode/write 로 파일에 기록하라
+// 기록된 파일을 읽어서 num값이 가장 큰 dog를 찾아 화면에 출력하라
+
+
+ifstream in{ "Dog100개를메모리그대로저장.txt" ,ios::binary };
+if (not in)
+{
+	cout << "파일열기 실패";
+	exit(0);
+}
+int count = 0;
+array<Dog, 100> a;		
+in.read((char*)a.data(), 0);
+
+auto pos = max_element(a.begin(), a.end(), [](const Dog& a, const Dog& b) {return a < b; });			// class Dog에 비교연산자<를 오버로딩하여 비교
+friend bool operator<(const Dog& lhs, const Dog& rhs)
+{
+	return lhs.num < rhs.num;
+}
+
+auto pos = max_element(a.begin(), a.end(), [](const Dog& a, const Dog& b) {return a.getN() < b.getN(); });	// Dog의 num을 get하는 getN()을 사용하여 비교
+pos->show();
+
+
+for (Dog d : a)
+{
+	cout << d << " - " << count << endl;
+	count++;
+}
+
