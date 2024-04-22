@@ -30,7 +30,12 @@ vector resize에서 복사생성이 일어나는 이유 - 원본이 훼손되면
 예외상황이 안일어난다고 알려주면 이동이 일어난다 - noexcept
 
 
+array vector 메모리가 붙어있다
+array vector deque - [] 사용가능 random_access
+array vector deque list - Sequence 원소의 값을 자유롭게 변경가능
 
+
+list는 push back, front, insert, erase 모두 상수시간에 가능
 
 
 

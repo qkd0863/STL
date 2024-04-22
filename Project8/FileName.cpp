@@ -1,41 +1,57 @@
-#include <deque>
-#include <vector>
+#include <algorithm>
+#include <fstream>
 #include <list>
-#include "String.h"
+#include <ranges>
 #include "save.h"
-
+#include "String.h"
 //-----------------------------------------------------------------
-// 2024.04.16 1학기 stl				                        (7주 2)
+// 2024.04.22 1학기 stl				                        (8주 1)
 //  
-// deque - vecto와 list의 중간형태를 띄는 자료구조다
+// list
 //-----------------------------------------------------------------
 
 extern bool 관찰;
 
-class Test
-{
-	char x[4096];
-};
 
 int main()	
 {
 	save("FileName.cpp");
-	//vector<Test> v;  //1574803
-	//deque<Test> v;   //2500000
-	list<Test>v;	   //2500000
-	while (1)
+	list<String>container;
+	관찰 = true;
+	//문제 container를 길이오름차순으로 정렬하라
+	ifstream in{ "String.cpp" };
+	if (not in)
 	{
-		try
-		{
-			v.push_back(Test{});
-		}
-		catch (...)
-		{
-			cout << "끝" << endl;
-			cout << v.size() << endl;
-			break;
-		}
-		if (!(v.size() % 100000))
-			cout << v.size() << endl;
+		return 1234;
 	}
+	
+	while (in)
+	{
+		in >> container.emplace_back();
+	}
+
+	container.sort([](const String& a, const String& b) {return a.getLen() < b.getLen(); });
+	//sort(container.begin(), container.end(), [](const String& a, const String& b) {return a.getLen() < b.getLen(); });
+	//sort(container, [](const String& a, const String& b) {return a.getLen() < b.getLen(); });
+	
+	//원소의 순서를 거꾸로 뒤집어라
+	container.reverse();
+
+
+	관찰 = false;
+
+
+	// 출력을 거꾸로 해라
+
+	cout << endl;
+	for (const String& s : container)
+		cout << s << endl;
+	for (auto p = container.rbegin(); p != container.rend(); ++p)
+		cout << *p << endl;
+
+	// 문제 길이가 5인 것들만 화면에 출력하라
+	for (const String& s : container)
+		if (s.getLen() == 5)
+			cout << s << endl;
+
 }                
