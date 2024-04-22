@@ -1,0 +1,28 @@
+ofstream out{ "array.txt",ios::binary };
+
+
+for (array<Dog, 100>&d : read_array)
+	out.write((const char*)d.data(),d.size()*sizeof(Dog));
+
+
+
+
+
+
+
+ifstream in{ "array.txt",ios::binary };
+
+for (array<Dog, 100>&d : read_array)
+	in.read((char*)d.data(), 100*sizeof(Dog));	sizeof(Dog) * 갯수
+
+
+
+	while (in.read((char*)read_array.data(), sizeof(Dog) * 100))
+	{
+		for (Dog d : read_array)
+		{
+			cout << count << " - count\t";
+			d.show();
+			count++;
+		}
+	}

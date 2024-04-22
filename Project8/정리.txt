@@ -38,6 +38,9 @@ array vector deque list - Sequence 원소의 값을 자유롭게 변경가능
 list는 push back, front, insert, erase 모두 상수시간에 가능
 
 
+iota(시작주소, 끝주소, 초기값)	1씩증가시키며 채운다
+count_if(시작주소, 끝주소,조건)	조건을 만족하는 갯수
+accumulate(시작주소,끝주소,초기값(자료형))   3번째 인자의 자료형을 따라간다 
 
 
 
@@ -85,6 +88,21 @@ ifstream in{"int100개를메모리그대로저장.txt" ,ios::binary };
 		
 
 
+//문제 "FileName.cpp"의 모든 소문자를 대문자로 바꿔 "stl대문자.txt"에 저장하라
+ifstream in{ "FileName.cpp" };
+if (not in)
+	return 123456;
+
+ofstream out{ "stl대문자.txt" };
+
+char c;
+in >> noskipws;
+while (in >> c)
+{
+	c = toupper(c);
+	out << c;
+}
+
 
 
 // 문제 dogs를 binary mode/write 로 파일에 기록하라
@@ -116,4 +134,45 @@ for (Dog d : a)
 	cout << d << " - " << count << endl;
 	count++;
 }
+
+
+
+
+
+array<String, 100>a;
+//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
+//a를 길이 오름차순으로 정렬하라
+//화면에 a를 출력하라
+
+array<String, 100>a;
+ifstream in{ "FileName.cpp" };
+if (not in)
+	return 123456;
+
+
+for (int i = 0; i < 100; ++i)
+	in >> a[i];
+
+sort(a.begin(), a.end(), [](const String& a, const String& b) {return  a.getLen() < b.getLen(); });
+
+for (const String& str : a)
+	cout << str << endl;
+
+
+
+
+
+
+
+
+
+
+//문제 키보드에서 입력한 int값의 합계와 평균을 출력하라
+//문제 키보드에서 입력한 String을 길이 오름차순 정렬하여 출력하라
+	
+vector<int> v{ istream_iterator<int>{cin},{} };		//cin - 키보드 입력  {}키보드 입력 끝
+
+int sum = accumulate(v.begin(), v.end(), 0);
+cout << "합계 " << sum << endl;
+cout << "평균 " << format("{:.2f}", sum / (double)v.size()) << endl;
 

@@ -1,29 +1,57 @@
-#INCLUDE "SAVE.H"
-#INCLUDE <STRING>
-#INCLUDE <ARRAY>
-#INCLUDE <NUMERIC>
-#INCLUDE <MEMORY>
 #INCLUDE <ALGORITHM>
+#INCLUDE <FSTREAM>
+#INCLUDE <LIST>
+#INCLUDE <RANGES>
+#INCLUDE "SAVE.H"
+#INCLUDE "STRING.H"
 //-----------------------------------------------------------------
-// 2024.03.26 1학기 STL 화 5~6 목 5~6                       (4주 2)
-// 
-// 
+// 2024.04.22 1학기 STL				                        (8주 1)
+//  
+// LIST
 //-----------------------------------------------------------------
 
+EXTERN BOOL 관찰;
 
-//문제 "FILENAME.CPP"의 모든 소문자를 대문자로 바꿔 "STL대문자.TXT"에 저장하라
 
-INT MAIN()
+INT MAIN()	
 {
-	//SAVE("FILENAME.CPP");
-	
-
-	IFSTREAM IN{ "FILENAME.CPP"};
+	SAVE("FILENAME.CPP");
+	LIST<STRING>CONTAINER;
+	관찰 = TRUE;
+	//문제 CONTAINER를 길이오름차순으로 정렬하라
+	IFSTREAM IN{ "STRING.CPP" };
 	IF (NOT IN)
-		RETURN 33333333;
-
-	OFSTREAM OUT{ "STL대문자.TXT"};
+	{
+		RETURN 1234;
+	}
 	
-	TRANSFORM(ISTREAMBUF_ITERATOR<CHAR>{IN}, {}, OSTREAMBUF_ITERATOR<CHAR>{OUT}, ::TOUPPER);
-		
-}
+	WHILE (IN)
+	{
+		IN >> CONTAINER.EMPLACE_BACK();
+	}
+
+	CONTAINER.SORT([](CONST STRING& A, CONST STRING& B) {RETURN A.GETLEN() < B.GETLEN(); });
+	//SORT(CONTAINER.BEGIN(), CONTAINER.END(), [](CONST STRING& A, CONST STRING& B) {RETURN A.GETLEN() < B.GETLEN(); });
+	//SORT(CONTAINER, [](CONST STRING& A, CONST STRING& B) {RETURN A.GETLEN() < B.GETLEN(); });
+	
+	//원소의 순서를 거꾸로 뒤집어라
+	CONTAINER.REVERSE();
+
+
+	관찰 = FALSE;
+
+
+	// 출력을 거꾸로 해라
+
+	COUT << ENDL;
+	FOR (CONST STRING& S : CONTAINER)
+		COUT << S << ENDL;
+	FOR (AUTO P = CONTAINER.RBEGIN(); P != CONTAINER.REND(); ++P)
+		COUT << *P << ENDL;
+
+	// 문제 길이가 5인 것들만 화면에 출력하라
+	FOR (CONST STRING& S : CONTAINER)
+		IF (S.GETLEN() == 5)
+			COUT << S << ENDL;
+
+}                

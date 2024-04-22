@@ -6,6 +6,7 @@
 #include <fstream>
 #include <numeric>
 #include <random>
+#include <string>
 #include "String.h"
 #include "save.h"
 
@@ -21,7 +22,7 @@ class Test
 {
 	char x[4096];
 };
-  
+
 
 default_random_engine dre;
 uniform_int_distribution uidNum{ 1,9999 };
@@ -59,37 +60,82 @@ public:
 };
 
 
+
+void saveArrayToBinaryFile(const array<array<Dog, 100>, 100>& d, const string& filename)
+{
+	ofstream file(filename, ios::binary);
+
+	if (file.is_open())
+	{
+		for (const auto& row : d)
+		{
+			for (const auto& dog : row)
+			{
+				file.write(reinterpret_cast<const char*>(&dog), sizeof(Dog));
+			}
+		}
+
+		file.close();
+		cout << "Saved to " << filename << " successfully!" << endl;
+	}
+	else
+	{
+		cout << "Failed to open file " << filename << " for writing!" << endl;
+	}
+}
+void loadArrayFromBinaryFile(array<array<Dog, 100>, 100>& d, const string& filename)
+{
+	ifstream file(filename, ios::binary);
+
+	if (file.is_open())
+	{
+		for (auto& row : d)
+		{
+			for (auto& dog : row)
+			{
+				file >> dog;
+			}
+		}
+
+		file.close();
+		cout << "Loaded from " << filename << " successfully!" << endl;
+	}
+	else
+	{
+		cout << "Failed to open file " << filename << " for reading!" << endl;
+	}
+}
+void sortArray(array<Dog, 100>& arr)
+{
+	sort(arr.begin(), arr.end());
+}
+void sortArrayOfArrays(array<array<Dog, 100>, 100>& d)
+{
+	for (auto& arr : d)
+	{
+		sortArray(arr);
+	}
+}
+
+
+
 int main()
 {
-	
-	array<int, 26> T{};
 	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
 	//a를 길이 오름차순으로 정렬하라
 	//화면에 a를 출력하라
-
-	ifstream in{ "FileName.cpp" };
-	if (not in)
-		return 123456;
-
-	char c;
-	while (in.read(&c, sizeof(char)))
-	{
-		if (iswlower(c))
-			T[static_cast<int>(c) - 'a'] += 1;
-	}
-		
-		
-
-
-		
-	for (int i = 0; i < 26; ++i)
-	{
-		cout << char(i + 'a') << " - " << T[i] << endl;
-	}
-
 	
+	
+	vector<int> v{ 1,2,3,3,5 };
+	vector<char> v2{ '1',2,'3',3,5};
+	
+	erase(v, 3);
+	erase(v2, '3');
 
+	for (int num : v)
+		cout << num << ' ' << endl;
+	cout << endl;
 
-
-		
+	for (int num : v2)
+		cout << num << ' ' << endl;
 }
