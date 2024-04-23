@@ -119,6 +119,12 @@ void sortArrayOfArrays(array<array<Dog, 100>, 100>& d)
 
 
 
+int Dogplus(Dog a, Dog b)
+{
+	return a.getN() + b.getN();
+}
+	
+
 int main()
 {
 	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라
@@ -126,16 +132,25 @@ int main()
 	//화면에 a를 출력하라
 	
 	
-	vector<int> v{ 1,2,3,3,5 };
-	vector<char> v2{ '1',2,'3',3,5};
+
+	array<int, 26> alpha{};
+
+
+	char c;
+
+	ifstream in{ "Dog.txt",ios::binary };
+
+
+	array<Dog, 100>read;
 	
-	erase(v, 3);
-	erase(v2, '3');
+	Dog temp;
+	int count = 1;
+	in.read((char*)read.data(), sizeof(Dog) * read.size());
 
-	for (int num : v)
-		cout << num << ' ' << endl;
-	cout << endl;
 
-	for (int num : v2)
-		cout << num << ' ' << endl;
+	sort(read.begin(), read.end(), [](const Dog& a, const Dog& b) {return a.getN() < b.getN(); });
+	cout << "N 의 합 - " << accumulate(read.begin(), read.end(), 0LL, [](long long sum, Dog& d) {return sum + d.getN(); }) << endl;
+
+	for (const Dog& d : read)
+		cout << d << endl;
 }

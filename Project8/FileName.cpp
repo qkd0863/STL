@@ -15,7 +15,7 @@ extern bool 관찰;
 
 int main()	
 {
-	save("FileName.cpp");
+	//save("FileName.cpp");
 	list<String>container;
 	관찰 = true;
 	//문제 container를 길이오름차순으로 정렬하라
