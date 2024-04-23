@@ -119,12 +119,6 @@ void sortArrayOfArrays(array<array<Dog, 100>, 100>& d)
 
 
 
-int Dogplus(Dog a, Dog b)
-{
-	return a.getN() + b.getN();
-}
-	
-
 int main()
 {
 	//문제 a에 "FileName.cpp"에 있는 단어를 저장하라

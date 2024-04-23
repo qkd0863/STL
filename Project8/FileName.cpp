@@ -43,7 +43,7 @@ int main()
 
 	// 출력을 거꾸로 해라
 
-	cout << endl;
+	cout << endl;	
 	for (const String& s : container)
 		cout << s << endl;
 	for (auto p = container.rbegin(); p != container.rend(); ++p)
