@@ -5,13 +5,13 @@ transform(istreambuf_iterator<char>{in}, {}, ostreambuf_iterator<char>{out}, ::t
 
 
 
-
+	
 Container (자료구조)
 1. Sequence
 -array<T,N>		크기 고정
--vector<T>		/한 방향 확장
+-vector<T>		//한 방향 확장
 -deque<T>		//덱 , 양 방향 확장
--forward_list<T>		
+-forward_list<T>		단일 연결리스트,	 공간과 시간의 오버헤드가 없다, 이보다 더 최적화할순 없다-(비효율적인 멤버는 존재하지 않는다, 사용하기 어렵다)
 -list<T>
 2. Associative
 3. unordered Associative
@@ -38,10 +38,16 @@ array vector deque list - Sequence 원소의 값을 자유롭게 변경가능
 list는 push back, front, insert, erase 모두 상수시간에 가능
 
 
+
+span		메모리를 통일된 방식으로 다룰수 있다
+
+
 iota(시작주소, 끝주소, 초기값)	1씩증가시키며 채운다
 count_if(시작주소, 끝주소,조건)	조건을 만족하는 갯수
 accumulate(시작주소,끝주소,초기값(자료형))   3번째 인자의 자료형을 따라간다 
-
+max_element()
+lexicographical_compare()
+unique() 중복원소 제거
 
 
 

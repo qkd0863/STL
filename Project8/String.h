@@ -4,6 +4,7 @@
 // 2024 4/2 Ω√¿€
 // 2024 4 15 noexecpt
 // 2024 4 16 operator==
+// 2024 4 30 operator< 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 #pragma once
@@ -52,6 +53,9 @@ public:
 	// 2024 4 16 operator==
 	bool operator==(const String& rhs)const;
 	
+	// 2024 4 30 <
+	bool operator<(const String& rhs)const;
+
 
 private:
 	static size_t uid;

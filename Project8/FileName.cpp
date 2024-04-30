@@ -5,9 +5,9 @@
 #include "save.h"
 #include "String.h"
 //-----------------------------------------------------------------
-// 2024.04.22 1학기 stl				                        (8주 1)
+// 2024.04.30 1학기 stl				                        (9주 2)
 //  
-// list
+// 
 //-----------------------------------------------------------------
 
 extern bool 관찰;
@@ -16,42 +16,38 @@ extern bool 관찰;
 int main()	
 {
 	//save("FileName.cpp");
-	list<String>container;
-	관찰 = true;
-	//문제 container를 길이오름차순으로 정렬하라
-	ifstream in{ "String.cpp" };
+	
+	//문제 "FileName.cpp"의 소문자를 list<char>에 push_back()으로 저장하라
+	//출력하라
+	//모든 소문자가 다 있나 확인하라
+
+
+	ifstream in{ "FileName.cpp" };
 	if (not in)
-	{
-		return 1234;
-	}
+		return 12345;
+	char c;
+	vector<char> List;
+	//list<char> List;
 	
-	while (in)
-	{
-		in >> container.emplace_back();
-	}
+	while (in >> c)
+		if (islower(c))
+			List.push_back(c);
+	sort(List.begin(), List.end());
+	auto p = unique(List.begin(), List.end());
+	List.erase(p, List.end());			//지워줘야한다
+	//List.sort();	
+	//List.unique();
 
-	container.sort([](const String& a, const String& b) {return a.getLen() < b.getLen(); });
-	//sort(container.begin(), container.end(), [](const String& a, const String& b) {return a.getLen() < b.getLen(); });
-	//sort(container, [](const String& a, const String& b) {return a.getLen() < b.getLen(); });
+	for (const char& c : List)
+		cout << c;
+	cout << endl;
+
 	
-	//원소의 순서를 거꾸로 뒤집어라
-	container.reverse();
+	if (List.size() == 26)
+		cout << "모든 문자가 있다" << endl;
+	else
+		cout << "없다" << endl;
 
 
-	관찰 = false;
-
-
-	// 출력을 거꾸로 해라
-
-	cout << endl;	
-	for (const String& s : container)
-		cout << s << endl;
-	for (auto p = container.rbegin(); p != container.rend(); ++p)
-		cout << *p << endl;
-
-	// 문제 길이가 5인 것들만 화면에 출력하라
-	for (const String& s : container)
-		if (s.getLen() == 5)
-			cout << s << endl;
 
 }                

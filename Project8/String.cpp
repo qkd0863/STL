@@ -4,8 +4,9 @@
 // String.cpp		STL 동작을 관찰하기 위한 클래스
 // 
 // 2024 4/2 시작
-// // 2024 4 15 noexecpt
+// 2024 4 15 noexecpt
 // 2024 4 16 operator==
+// 2024 4 30 <
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -111,6 +112,11 @@ bool String::operator==(const String& rhs) const
 	if (len != rhs.len)
 		return false;
 	return std::equal(p.get(), p.get() + len, rhs.p.get());
+}
+//2024 4 30 <
+bool String::operator<(const String& rhs) const
+{
+	return std::lexicographical_compare(p.get(), p.get() + len, rhs.p.get(), rhs.p.get() + rhs.len);
 }
 
 
