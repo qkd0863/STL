@@ -38,8 +38,13 @@ array vector deque list - Sequence 원소의 값을 자유롭게 변경가능
 list는 push back, front, insert, erase 모두 상수시간에 가능
 
 
-
+fuction class
+string view class
 span		메모리를 통일된 방식으로 다룰수 있다
+
+
+iterator(반복자) 포인터를 일반화 한것
+
 
 
 iota(시작주소, 끝주소, 초기값)	1씩증가시키며 채운다
