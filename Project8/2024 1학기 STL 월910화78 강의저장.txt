@@ -2991,3 +2991,270 @@ int main()
 
 	
 }                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-07 화요일 오후 3:32:37 
+====================================================================================================
+#include <forward_list>
+#include <list>
+#include <deque>
+#include <vector>
+#include <iterator>
+#include "save.h"
+#include "String.h"
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (10주 2)
+//  
+// iterator -iterator are a generalization of pointers
+// 포인터를 일반화 한 것이 반복자다. 이걸 사용하면 자료구조가 뭔지
+// 신경쓸 필요없이 동일한 방식으로 코딩할 수 있다
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+template <class 반복자>
+void f(반복자 iter)
+{
+	//c++17 이후
+	// 벡터만 컴파일 통과
+	// 다른 컨테이너는 실패 - SFINAE
+	cout << typeid(반복자::iterator_category).name() << endl;
+	//iterator_category
+}
+
+int main()	
+{
+	save("FileName.cpp");
+	// 반복자란 무엇인가.
+	// 출력스트림 반복자(stream 반복자, 반복자 어댑터)의 동작을 통해 반복자가 
+	// 무엇인지 알아본다
+	// 반복자는 포인터가 절대 아니다
+
+	// 문제 반복자는 6가지 종류가 있다
+	// 함수 f에게 반복자를 인자로 넘겨주면 어떤 종류인지 출력하게 하라
+	
+	// 문제 벡터가 contiguous 인지 판별하려면 질문을 바꿔야 한다
+
+
+
+	//f(istream_iterator<string>{cin});
+	//f(ostream_iterator<String>{cout});
+	//f(forward_list<char>::iterator{});
+	//f(list<double>::reverse_iterator{});
+	//f(deque<int>{}.cbegin());
+	//f(vector<int>{}.begin());	//벡터의 반복자는 다른 반복자 종류가 될 수 있다 
+	//
+	//f(int{});
+
+
+
+
+
+
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-07 화요일 오후 4:21:57 
+====================================================================================================
+#include "String.h"
+#include "save.h"
+
+
+#include <span>
+
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (10주 2)
+//  
+//
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	
+	string s{ "1357924680" };
+	// 문제  다음 문장이 실행되게 하라
+	// 문제 거꾸로 출력하라
+
+	//span<char> sp{ s.begin(),s.end() };
+	//for (auto i = sp.rbegin(); i != sp.rend(); ++i)
+	//	cout << *i << ' ';
+	//cout << endl;
+
+	//for (auto i = s.begin(); i != s.end(); ++i)
+	//	cout << *i << ' ';
+	//cout << endl;
+
+	//for (auto i = s.rbegin(); i != s.rend(); ++i)
+	//	cout << *i << ' ';
+	//cout << endl;
+
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-07 화요일 오후 4:52:27 
+====================================================================================================
+#include "String.h"
+#include "save.h"
+
+
+#include <span>
+
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (10주 2)
+//  
+//
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	
+	String s{ "1357924680" };
+	
+	// 문제  다음 문장이 실행되게 하라
+	// 문제 거꾸로 출력하라
+
+	//span<char> sp{ s.begin(),s.end() };
+	//for (auto i = sp.rbegin(); i != sp.rend(); ++i)
+	//	cout << *i << ' ';
+	//cout << endl;
+
+	for (auto i = s.begin(); i != s.end(); ++i)
+		cout << *i << ' ';
+	cout << endl;
+
+
+	//자동으로 !=를 만들어준다
+	for (auto i = s.rbegin(); i !=s.rend(); i.operator++())
+		cout << i.operator*() << ' ';
+	cout << endl;
+
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-07 화요일 오후 5:19:40 
+====================================================================================================
+#include "String.h"
+#include "save.h"
+#include <vector>
+
+#include <span>
+
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (10주 2)
+//  
+//
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+template <class 반복자>
+void f(반복자 iter)
+{
+	cout << typeid(iterator_traits<반복자>::iterator_category).name() << endl;
+	//c++17
+	cout << typeid(반복자::iterator_concept).name() << endl;
+}
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	
+	String s{ "1357924680" };
+	
+	// 문제  다음 문장이 실행되게 하라
+	// 문제 거꾸로 출력하라
+
+	//span<char> sp{ s.begin(),s.end() };
+	//for (auto i = sp.rbegin(); i != sp.rend(); ++i)
+	//	cout << *i << ' ';
+	//cout << endl;
+
+	//반복자의 속성을 확인하는 표준 질문에 응답할 수 있어야 한다
+	//c++ 표준을 지키는 반복자가 되려면 다음 다섯가지 항목을 정의해야한다
+	// difference type
+	// value type
+	// pointer
+	// reference
+	// itertor category
+
+	f(s.rbegin());
+
+
+	for (auto i = s.begin(); i != s.end(); ++i)
+		cout << *i << ' ';
+	cout << endl;
+
+
+	//자동으로 !=를 만들어준다
+	for (auto i = s.rbegin(); i !=s.rend(); i.operator++())
+		cout << i.operator*() << ' ';
+	cout << endl;
+
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-07 화요일 오후 5:21:57 
+====================================================================================================
+#include "String.h"
+#include "save.h"
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <span>
+
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (10주 2)
+//  
+//
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+template <class 반복자>
+void f(반복자 iter)
+{
+	cout << typeid(iterator_traits<반복자>::iterator_category).name() << endl;
+	//c++17
+	cout << typeid(반복자::iterator_concept).name() << endl;
+}
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	
+	string s{ "1357924680" };
+	
+	
+	sort(s.rbegin(), s.rend());
+	cout << s << endl;
+}                
