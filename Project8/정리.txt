@@ -46,6 +46,14 @@ span		메모리를 통일된 방식으로 다룰수 있다
 iterator(반복자) 포인터를 일반화 한것
 
 
+l - value	(loaction value)
+value category 에 대해 알아보자
+
+함수 오버로딩은 const의 유무로 가능하다
+void f()
+void f()const
+
+변수를 _변수이름 이런식으로 지으면 안된다 _count 
 
 iota(시작주소, 끝주소, 초기값)	1씩증가시키며 채운다
 count_if(시작주소, 끝주소,조건)	조건을 만족하는 갯수

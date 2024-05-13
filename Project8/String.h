@@ -7,6 +7,7 @@
 // 2024 4 30 operator< 
 // 2024 5 7  begin() end()
 // 2024 5 7  rbegin() rend()의 결과는 class 객체이어야 한다
+// 2024 5 13 String iterator가 진짜 random_access 반복자가 되도록 코딩
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 #pragma once
@@ -35,14 +36,48 @@ public:
 	{
 		return ++p;
 	}
-	char operator*()const
-	{
-		return *p;
-	}
 
 	bool operator==(const String_iterator& rhs)const
 	{
 		return p == rhs.p;
+	}
+
+	// 2024 5 13
+	difference_type operator-(const String_iterator& rhs)const
+	{
+		return p - rhs.p;
+	}
+
+	reference operator*()
+	{
+		return *p;
+	}
+
+	reference operator*()const 
+	{
+		return *p;
+	}
+
+	String_iterator& operator--()
+	{
+		--p;
+		return *this;
+	}
+
+	String_iterator operator+(difference_type d)const
+	{
+		return p + d;
+	}
+
+	bool operator<(const String_iterator& rhs)const
+	{
+		return p < rhs.p;
+	}
+
+
+	String_iterator operator-(difference_type d)const
+	{
+		return p - d;
 	}
 
 };
