@@ -1,38 +1,45 @@
 #include <string>
+#include <vector>
 #include "String.h"
 #include "save.h"
 
 //-----------------------------------------------------------------
-// 2024.04.30 1학기 stl				                        (11주 1)
+// 2024.04.30 1학기 stl				                        (11주 2)
 //  
-// 알고리즘 함수는 반복자를 인자로 받는다
-// 
+// Associative Conatainer - set
+// 6/11 화요일 기말 
 //-----------------------------------------------------------------
 
 extern bool 관찰;
 
-//template<class 반복자,class 값>
-//반복자 my_find(반복자 begin, 반복자 end, 값 val)
-//{
-//	return begin
-//};
+// 세번째 인자는 callable type인데 이 중에서 boolean 값을 리턴하는 것을 
+// 특별히 predicate라고 부른다(조건자, 서술자, 판단자)
+
+
+template<class initer,class outiter>
+void my_copy(initer begin, initer end, outiter d)
+{
+	while (begin != end)
+	{
+		//*d operator=(*begin)
+		*d = *begin;
+		++begin;
+		++d;
+	}
+}
+
+
 
 int main()	
 {
-	save("FileName.cpp");
+	//save("FileName.cpp");
 	
-	String s{ "20240513 - stl container iterator algorithm" };
 	
-	// 문제 사용자가 찾는 글자가 s에 있는지 알려주자
+	String s{ "20240514 기말시험 6월 15일 15주 2일" };
+	vector<char>v;
 
-	while (1)
-	{
-		cout << "찾을 문자는?";
-		char ch;
-	/*	auto p = my_find(s.begin(), s.end(), ch);
-		if (p != s.end())
-			cout << "위치 - " << "을 찾음" << endl;
-		else
-			cout << ch << "는 s에 없는 글자입니다" << endl;*/
-	}
+	my_copy(s.begin(), s.end(), back_inserter(v));	//undefind behavior
+
+	for (char c : v)
+		cout << c;
 }                

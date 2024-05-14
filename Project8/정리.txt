@@ -54,6 +54,10 @@ void f()
 void f()const
 
 변수를 _변수이름 이런식으로 지으면 안된다 _count 
+size가 0이면 begin과 end가 같다
+my_copy(s.begin(), s.end(), back_inserter(v));	반복자 어댑터로 size를 바꿔야 한다
+vector 정렬되어 있다면 binary_search로 찾아야 한다 find는 느리다
+
 
 iota(시작주소, 끝주소, 초기값)	1씩증가시키며 채운다
 count_if(시작주소, 끝주소,조건)	조건을 만족하는 갯수
