@@ -4020,3 +4020,255 @@ int main()
 	for (char c : v)
 		cout << c;
 }                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-20 월요일 오후 6:11:21 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (11주 2)
+//  
+// Associative Conatainer - set
+// set은 unique한 key 값을 정렬 상태로 유지한다
+// uniqueness는 equivalence 관계를 이용하여 결정한다
+// !(a>b)&&!(b>a) -> equivalence(동등한) 관계
+// 비교해서 알아두자
+// a==b -> equality(상등) 관계
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+// 세번째 인자는 callable type인데 이 중에서 boolean 값을 리턴하는 것을 
+// 특별히 predicate라고 부른다(조건자, 서술자, 판단자)
+
+
+template<class initer,class outiter>
+void my_copy(initer begin, initer end, outiter d)
+{
+	while (begin != end)
+	{
+		//*d operator=(*begin)
+		*d = *begin;
+		++begin;
+		++d;
+	}
+}
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 set에 읽어와라
+
+	set<String,std::less<String>> s;
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+
+	//String temp;
+	//while (in >> temp)
+	//	s.insert(temp);
+
+	for (const String& t : s)
+		cout << t << endl;
+	cout << s.size() << endl;
+
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-20 월요일 오후 6:45:00 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (11주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+
+struct 람다 {
+	bool operator()(const String& a, const String& b)const
+	{
+		//return a.getLen() < b.getLen();
+		
+		//대문자 먼저
+		// 소 대 인경우만 변경하면 된다
+		if (islower(*a.begin()) && isupper(*b.begin()))
+			return false;
+		else
+			return true;
+	}
+};
+
+//struct 람다
+//{
+//	bool operator()(const String& a, const String& b)	//predicate
+//	{
+//		return a.getLen() < b.getLen();
+//	}
+//};
+
+bool comp(const String& a, const String& b)	//predicate
+{
+		return a.getLen() < b.getLen();
+}
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 set에 읽어와라
+	//set은 단어길이기준 오름차순으로 정렬해야 한다
+	//set은 대문자로 시작하는 단어가 먼저 나와야 한다
+
+
+	multiset<String, 람다> s; //(*)==함수
+	//set<String, bool(*)(const String&, const String&)> s{ comp }; //(*)==함수
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+
+	//String temp;
+	//while (in >> temp)
+	//	s.insert(temp);
+
+	for (const String& t : s)
+		cout << t << " ";
+	cout << s.size() << endl;
+
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-20 월요일 오후 6:46:05 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (11주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 mutiset에 읽어왔다
+	
+
+	multiset<String> s; //(*)==함수
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+
+	for (const String& t : s)
+		cout << t << " ";
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-20 월요일 오후 7:04:23 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (11주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+bool 찾았다면(multiset<String> ms)
+{
+
+}
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 mutiset에 읽어왔다
+	
+
+	multiset<String> s; //(*)==함수
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+	// 문제 찾는 단어가 set에 있는지 알려준다
+	while (true)
+	{
+		cout << "찾을 단어는?";
+		String word;
+		cin >> word;
+
+		if (s.find(word) != s.end())	//s.contains(word) 이 단어가 있는지 bool로 반환
+			cout << word << "는 앨리스에 있는 단어입니다" << endl;
+		else
+			cout << "그런 단어 없습니다" << endl;
+	}
+	cout << s.size();
+	
+}                
