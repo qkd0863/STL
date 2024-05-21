@@ -4272,3 +4272,325 @@ int main()
 	cout << s.size();
 	
 }                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-21 화요일 오후 4:09:23 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (12주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+bool 찾았다면(multiset<String> ms)
+{
+
+}
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 mutiset에 읽어왔다
+	
+
+	multiset<String> s; //(*)==함수
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+	// 문제 찾는 단어가 일부라도 포함된 단어를 모두 출력하라
+	// app -> apple
+	while (true)
+	{
+		cout << "찾을 단어는?";
+		String word;
+		cin >> word;
+
+		for (const String& s : s)
+		{
+			auto p = search(s.begin(), s.end(), word.begin(), word.end());
+			if (p != s.end())
+				cout << s << " ";
+			// s는 word를 포함하고 있나?
+		}
+			
+			
+		
+
+		
+	}
+	
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-21 화요일 오후 4:36:54 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (12주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+bool 찾았다면(multiset<String> ms)
+{
+
+}
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 mutiset에 읽어왔다
+	
+
+	multiset<String> s; //(*)==함수
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+	// 문제 찾는 단어가 일부라도 포함된 단어를 모두 출력하라
+	// app -> apple
+	while (true)
+	{
+		cout << "찾을 단어는?";
+		String word;
+		cin >> word;
+
+		set<String> F;
+		for (const String& s : s)
+		{
+			// 문제 단어를 1개씩만 출력되게하라 - multiset을 바꾸지 마라
+			auto p = search(s.begin(), s.end(), word.begin(), word.end());
+			if (p != s.end() && !F.contains(s))
+			{
+				cout << s << " ";
+				F.insert(s);
+			}
+
+			
+				
+
+			// s는 word를 포함하고 있나?
+		}
+			
+			
+		
+
+		
+	}
+	
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-21 화요일 오후 4:53:30 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (12주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+bool 찾았다면(multiset<String> ms)
+{
+
+}
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 mutiset에 읽어왔다
+	
+	//문제
+	//1. 찾는 단어가 있니 y/n - contains
+	//2. 찾는 단어가 있니 있으면 알려줘 - find
+	//3. 찾는 단어가 있니 있으면 몇 개나 있니 - count(VS에서는 큰 문제가 없다 equal_range사용)
+	//컴파일러와 무관하게 -> equal_range로 같은 일을 할 수 있다(operator ==이 필요없다)							   - count
+
+
+	multiset<String> s; //(*)==함수
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+	// 문제 찾는 단어가 일부라도 포함된 단어를 모두 출력하라
+	// app -> apple
+	while (true)
+	{
+		cout << "찾을 단어는?";
+		String word;
+		cin >> word;
+		size_t num = s.count(word);//count 는 연산자를 여러개 사용한다
+		if (num)
+			cout << word << " - " << num << "개 있다" << endl;
+		else
+			cout << "그런 단어 없습니다" << endl;
+	}
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-21 화요일 오후 4:56:40 
+====================================================================================================
+#include <string>
+#include <vector>
+#include <set>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (12주 2)
+//  
+// Associative Conatainer - set
+// set은 어떻게 정렬하는가
+// 디폴트 less<Key> - > operator<를 이용한다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+bool 찾았다면(multiset<String> ms)
+{
+
+}
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt" 파일에 있는 단어를 mutiset에 읽어왔다
+	
+	//문제
+	//1. 찾는 단어가 있니 y/n - contains
+	//2. 찾는 단어가 있니 있으면 알려줘 - find
+	//3. 찾는 단어가 있니 있으면 몇 개나 있니 - count(VS에서는 큰 문제가 없다 equal_range사용)
+	//컴파일러와 무관하게 -> equal_range로 같은 일을 할 수 있다(operator ==이 필요없다)							   - count
+
+
+	multiset<String> s; //(*)==함수
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 123456;
+	
+	
+	s = { istream_iterator<String>{in}, {} };
+	// 문제 찾는 단어가 일부라도 포함된 단어를 모두 출력하라
+	// app -> apple
+	while (true)
+	{
+		cout << "찾을 단어는?";
+		String word;
+		cin >> word;
+		//구조화된 바인딩 structured-binding을 이용하여 값을 받는다
+		auto [하한, 상한] = s.equal_range(word);  //[b,e)를 리턴
+
+		if (하한 == 상한)
+			cout << word << "- 없는 단어" << endl;
+		else
+			cout << distance(하한, 상한) << "개의 " << word << "발견" << endl;
+
+	}
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-21 화요일 오후 5:22:35 
+====================================================================================================
+#include <string>
+#include <list>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (12주 2)
+//  
+// Associative Conatainer - map<key, value> -> dictionary
+// map -> 연관배열처럼 사용할 수 있다 인덱스가 int가 아니다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	// 그룹과 멤버
+	map<String, list<String>> m{ {"아이브",{"안유진","가을","레이","장원영","리즈","이서"}} };
+
+	m.insert(pair<String, list<String>>{"블랙핑크", { "지수","제니","로제","리사" }});
+	m.insert(make_pair("아이유", list<String>{"아이유"}));
+	m["르세라핌"] = { "사쿠라","김채원","허윤진","카즈하","홍은채"};
+
+	//전체 출력
+
+	for (const auto& [그룹, 멤버] : m)
+	{
+		cout << 그룹 << " - " << 멤버.size() << "명 ";
+		for (const auto& a : 멤버)
+			cout << a << " ";
+		cout << endl;
+	}
+}                
