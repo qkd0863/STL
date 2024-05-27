@@ -4594,3 +4594,310 @@ int main()
 		cout << endl;
 	}
 }                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-27 월요일 오후 5:34:18 
+====================================================================================================
+#include <string>
+#include <list>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 1)
+//  
+// Associative Conatainer - map<key, value> -> dictionary
+// map -> 연관배열처럼 사용할 수 있다 인덱스가 int가 아니다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt"파일을 한 번 읽어서 
+	//소문자와 출현횟수를 다음과 같이 출력하라
+	// a - 333
+	// b - 444
+	// ..  z - 10
+
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 12345;
+	char c;
+	map<char, int> m;
+	while (in >> c)
+	{
+		if (isalpha(c))
+			m[tolower(c)]++;
+	}
+
+	for (auto [소문자, 개수] : m)
+		cout << 소문자 << " - " << 개수 << endl;
+
+
+
+
+
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-27 월요일 오후 5:52:43 
+====================================================================================================
+#include <string>
+#include <ranges>
+#include <list>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 1)
+//  
+// Associative Conatainer - map<key, value> -> dictionary
+// map -> 연관배열처럼 사용할 수 있다 인덱스가 int가 아니다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt"파일을 한 번 읽어서 
+	//소문자와 출현횟수를 다음과 같이 출력하라
+	// a - 333
+	// b - 444
+	// ..  z - 10
+
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 12345;
+	char c;
+	map<char, int> m;
+	while (in >> c)
+	{
+		if (isalpha(c))
+			m[tolower(c)]++;
+	}
+
+	for (auto [소문자, 개수] : m)
+		cout << 소문자 << " - " << 개수 << endl;
+
+	//문제 개수 내림차순으로 출력하라
+
+	//map<int, char, greater<int>> icm;
+	map<int, char> icm;
+	for (auto [소문자, 개수] : m)
+		icm[개수] = 소문자;
+
+	cout << "개수 기준으로 정렬" << endl;
+
+	for (auto [개수, 소문자] : icm | views::reverse)	//#include ranges
+		cout << 소문자 << " - " << 개수 << endl;
+
+	//for (auto p = icm.rbegin(); p != icm.rend(); ++p)
+	//	cout << p->second << " - " << p->first << endl;
+
+	//for (auto [개수, 소문자] : icm)
+	//	cout << 소문자 << " - " << 개수 << endl;
+
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-27 월요일 오후 6:12:41 
+====================================================================================================
+#include <string>
+#include <ranges>
+#include <list>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 1)
+//  
+// Associative Conatainer - map<key, value> -> dictionary
+// map -> 연관배열처럼 사용할 수 있다 인덱스가 int가 아니다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	//문제 "이상한 나라의 앨리스.txt"파일을 한 번 읽어서 
+	//단어와 출현횟수를 출력하라
+
+
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 12345;
+	String s;
+	map<String, int> Sim;
+	
+
+	while (in >> s)
+	{
+		Sim[s]++;
+	}
+
+	
+
+	//map<int, vector<String>> iSm;
+	//for (const auto& [단어, 개수] : Sim)
+	//	iSm[개수].push_back(단어);
+
+
+	//for (const auto& [개수, 단어] : iSm | views::reverse)
+	//	for(const String& s:단어)
+	//		cout << s << " - " << 개수 << endl;
+
+	multimap<int, String> iSm;
+	for (const auto& [단어, 개수] : Sim)
+		iSm.insert(make_pair(개수, 단어));
+
+
+	for (const auto& [개수, 단어] : iSm | views::reverse | views::take(200))
+			cout << 단어 << " - " << 개수 << endl;
+
+
+
+	//문제 많이 사용된 단어 순으로 출력하라
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-27 월요일 오후 6:33:41 
+====================================================================================================
+#include <map>
+#include <fstream>
+#include <random>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 1)
+//  
+// Associative Conatainer - map<key, value> -> dictionary
+// map -> 연관배열처럼 사용할 수 있다 인덱스가 int가 아니다
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre;
+uniform_int_distribution uid{1,99999};
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	//유니폼분포는 정말 유니폼한가?
+	//값을 10등분해서 출력횟수를 출력하라
+
+
+
+	map<int, int> m;
+
+	for (int i = 0; i < 1000000; ++i)
+		m[uid(dre) / 10000]++;
+
+
+	
+	for (auto [구간, 개수] : m)
+		cout << 구간 << " - " << 개수 << endl;
+	
+
+
+
+
+
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-27 월요일 오후 6:55:20 
+====================================================================================================
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+#include <fstream>
+#include <random>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 1)
+//  
+// unordered associative container
+// unordered의 의미
+// 메모리 구조 어떻게?
+// 내가 만든 String도 관리가능해?
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre;
+uniform_int_distribution uid{1,99999};
+normal_distribution nd{ 0.0,0.1 };
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	//노말분포는 정말 노말한가?
+	//값을 20등분해서 출력횟수를 출력하라
+
+
+
+	map<int, int> m;
+
+	for (int i = 0; i < 100000; ++i)
+	{
+		double val = nd(dre) * 50000 + 50000;
+		if (0 < val && val < 100000)
+			m[val / 5000]++;
+	}
+	
+		
+
+
+	
+	for (auto [구간, 개수] : m)
+		cout << 구간 << " - " << 개수 << endl;
+	
+
+
+
+
+
+}                
