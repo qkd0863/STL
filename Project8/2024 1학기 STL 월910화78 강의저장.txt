@@ -4901,3 +4901,218 @@ int main()
 
 
 }                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-28 화요일 오후 4:02:33 
+====================================================================================================
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+#include <fstream>
+#include <random>
+#include <print>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 1)
+//  
+// unordered associative container
+// unordered의 의미
+// 메모리 구조 어떻게?
+// 내가 만든 String도 관리가능해?
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre;
+uniform_int_distribution uid{1,99999};
+normal_distribution nd{ 0.0,0.1 };
+
+struct 해시 {
+	size_t operator()(const String& s) const{
+		return 7;
+	}
+};
+
+
+void print_us(const unordered_multiset<String,해시>& us)
+{
+	for (int i = 0; i < us.bucket_count(); ++i)
+	{
+		print("[{:3}] ", i);
+		for (auto p = us.begin(i); p != us.end(i); ++p)
+			cout << " - " << *p;
+		cout << endl;
+	}
+}
+
+
+int main()	
+{
+	save("FileName.cpp");
+
+
+	unordered_multiset<String,해시> us{"2024년","5월","28일","재미있는STL"};
+
+
+
+	while (1)
+	{
+		cout << endl;
+		print_us(us);
+		cout << endl;
+
+		cout << "추가할 데이터?";
+		String s;
+		cin >> s;
+		us.insert(s);
+	}
+
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-05-28 화요일 오후 5:11:47 
+====================================================================================================
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <algorithm>
+#include <random>
+#include <chrono>
+#include <fstream>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (13주 2)
+//  
+// 컨테이너의 찾기 성능 비교 - 1000만개에서 10만개를 찾아본다
+// 0. 벡터	105428ms 63170
+// 1. 정렬한 벡터	24ms 63170		// 캐시 미스가 안일어남, random_access가 가능해서 접근시간이 항상 동일하다	->flat-set
+// 2. set	77ms 63170
+// 3. unordered set	3ms 63170
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+const int NUM = 10000000;
+const int FNUM = 100000;
+array<int, NUM>a;
+array<int, FNUM>fa;
+
+default_random_engine dre;
+uniform_int_distribution uid{ 1,NUM };
+
+
+
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	for (int& num : a)
+		num = uid(dre);
+
+	for (int& num : fa)
+		num = uid(dre);
+
+	//{
+	//	//벡터에서 찾기
+	//	cout << "벡터 준비중...";
+	//	vector<int> v{ a.begin(),a.end() };
+	//	cout << endl;
+	//	int count{};
+
+	//	auto start = chrono::high_resolution_clock::now();
+	//	for (int num : fa)
+	//	{
+	//		auto p =find(v.begin(), v.end(), num);
+	//		if (p != v.end())
+	//			++count;
+	//	}
+	//	auto end = chrono::high_resolution_clock::now();
+	//	auto elapsed = end - start;	// duration
+	//	auto 걸린시간 = chrono::duration_cast<chrono::milliseconds>(elapsed);
+	//	cout << "걸린시간 - " << 걸린시간 << endl;
+	//	cout << FNUM << "에서 " << count << "개를 찾음" << endl;
+	//	cout << endl;
+	//}	
+
+
+
+	//{
+	//	//셋에서 찾기
+	//	cout << "셋 준비중...";
+	//	multiset<int> s{ a.begin(),a.end() };
+	//	cout << endl;
+	//	int count{};
+
+	//	auto start = chrono::high_resolution_clock::now();
+	//	for (int num : fa)
+	//	{
+	//		if (s.contains(num))
+	//			++count;
+	//	}
+	//	auto end = chrono::high_resolution_clock::now();
+	//	auto elapsed = end - start;	// duration
+	//	auto 걸린시간 = chrono::duration_cast<chrono::milliseconds>(elapsed);
+	//	cout << "걸린시간 - " << 걸린시간 << endl;
+	//	cout << FNUM << "에서 " << count << "개를 찾음" << endl;
+	//	cout << endl;
+	//}
+
+	//{
+	//	//언오더 셋에서 찾기
+	//	cout << "언오더 멀티셋 준비중...";
+	//	unordered_multiset<int> us;
+	//	us.reserve(NUM);
+	//	us = { a.begin(),a.end() };
+	//	cout << endl;
+	//	int count{};
+
+	//	auto start = chrono::high_resolution_clock::now();
+	//	for (int num : fa)
+	//	{
+	//		if (us.contains(num))
+	//			++count;
+	//	}
+	//	auto end = chrono::high_resolution_clock::now();
+	//	auto elapsed = end - start;	// duration
+	//	auto 걸린시간 = chrono::duration_cast<chrono::milliseconds>(elapsed);
+	//	cout << "걸린시간 - " << 걸린시간 << endl;
+	//	cout << FNUM << "에서 " << count << "개를 찾음" << endl;
+	//	cout << endl;
+	//}
+
+
+	{
+		//정렬한 벡터에서 찾기
+		cout << "정렬한 벡터 준비중...";
+		vector<int> v;
+		v.reserve(NUM);
+		v = { a.begin(), a.end() };
+
+		sort(v.begin(), v.end());
+		cout << endl;
+		int count{};
+
+		auto start = chrono::high_resolution_clock::now();
+		for (int num : fa)
+		{
+			if (binary_search(v.begin(), v.end(), num))
+				++count;
+		}
+		auto end = chrono::high_resolution_clock::now();
+		auto elapsed = end - start;	// duration
+		auto 걸린시간 = chrono::duration_cast<chrono::milliseconds>(elapsed);
+		cout << "걸린시간 - " << 걸린시간 << endl;
+		cout << FNUM << "에서 " << count << "개를 찾음" << endl;
+		cout << endl;
+	}	
+}                
