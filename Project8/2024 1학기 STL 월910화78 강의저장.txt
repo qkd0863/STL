@@ -5116,3 +5116,286 @@ int main()
 		cout << endl;
 	}	
 }                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-03 월요일 오후 6:01:46 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 1)
+//  
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+template <class 반복자, class 단항조건자>
+bool my_all_of(반복자 b, 반복자 e, 단항조건자 p)
+{
+	while (b != e)
+	{
+		if (not p(*b))
+			return false;
+		++b;
+	}
+	return true;
+}
+
+int main()	
+{
+	save("FileName.cpp");
+	array<int, 0> a;
+	//문제 a의 원소가 모두 홀수인가? 검사하고 출력하자
+	
+	bool b = my_all_of(a.begin(), a.end(), [](int n) {return n & 1; });
+	if (b)
+		cout << "홀수가 아닌것은 한개도 없다" << endl;
+	else
+		cout << "모두가 홀수인것은 아니다" << endl;
+
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-03 월요일 오후 6:09:18 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <numeric>
+#include <random>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 1)
+//  
+// 
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre{ random_device{}() };
+
+
+int main()	
+{
+	save("FileName.cpp");
+	
+
+	// [1,46) 숫자,이 중에 6개를 뽑아라
+	array<int, 45> a;
+	iota(a.begin(), a.end(), 1);
+
+	cout << "이번주 번호" << endl;
+	sample(a.begin(), a.end(), ostream_iterator<int>{cout, " "}, 6, dre);
+	
+
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-03 월요일 오후 6:20:22 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <numeric>
+#include <print>
+#include <thread>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 1)
+//  
+// sort 관련 algorithm
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()	
+{
+	save("FileName.cpp");
+	
+	//문제
+	string s{ "STL - Container - iterator - Algorithm" };
+	for (int i = 0; i < 10; ++i)
+		cout << endl;
+	
+	while (1)
+	{
+		rotate(s.begin(), s.end()- 1, s.end());
+		print("{:^80}", s);
+		cout << "\r";
+		this_thread::sleep_for(100ms);
+	}
+	
+}                
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-03 월요일 오후 6:47:19 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <numeric>
+#include <print>
+#include <thread>
+#include <random>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 1)
+//  
+// sort 관련 algorithm - 복잡도
+// partition
+// nth_element
+// partial_sort
+// sort
+// stable_sort
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+random_device rd;
+default_random_engine dre{ rd() };
+uniform_int_distribution<int> uidC{ 'A','Z' };
+uniform_int_distribution uidN{ 1,30 };
+
+int main()
+{
+	save("FileName.cpp");
+
+	array<int, 100> a;
+	iota(a.begin(), a.end(), 1);
+	{
+		// 홀짝으로 분리 -  partiotion
+		cout << "홀짝으로 분리하기 전" << endl;
+		shuffle(a.begin(), a.end(), dre);
+		for (int num : a)
+			print("{:4}", num);
+		
+		auto p = partition(a.begin(), a.end(), [](int n) {return n & 1; });
+
+		cout << endl;
+		cout << "홀수" << endl;
+		for (auto i = a.begin(); i != p; ++i)
+			print("{:4}", *i);
+
+		cout << endl;
+		cout << "짝수" << endl;
+		for (auto i = p; i != a.end(); ++i)
+			print("{:4}", *i);
+	}
+	cout << endl;
+	cout << endl;
+	{
+		// 30등까지와 나머지로 분리 -  nth_element
+		cout << "30등까지와 나머지로 분리하기 전" << endl;
+		shuffle(a.begin(), a.end(), dre);
+		for (int num : a)
+			print("{:4}", num);
+
+		nth_element(a.begin(), a.begin() + 30, a.end());
+		auto nth = a.begin() + 30;
+
+		cout << endl;
+		cout << "30등까지" << endl;
+		for (auto i = a.begin(); i != nth; ++i)
+			print("{:4}", *i);
+
+		cout << endl;
+		cout << "나머지" << endl;
+		for (auto i = nth; i != a.end(); ++i)
+			print("{:4}", *i);
+	}
+
+	cout << endl;
+	cout << endl;
+	{
+		// 30등까지만 정렬 -  partial_sort
+		cout << "30등까지와 나머지로 분리하기 전" << endl;
+		shuffle(a.begin(), a.end(), dre);
+		for (int num : a)
+			print("{:4}", num);
+
+		partial_sort(a.begin(), a.begin() + 30, a.end());
+		auto nth = a.begin() + 30;
+
+		cout << endl;
+		cout << "30등까지" << endl;
+		for (auto i = a.begin(); i != nth; ++i)
+			print("{:4}", *i);
+
+		cout << endl;
+		cout << "나머지" << endl;
+		for (auto i = nth; i != a.end(); ++i)
+			print("{:4}", *i);
+	}
+
+	
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-03 월요일 오후 7:04:01 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <numeric>
+#include <print>
+#include <thread>
+#include <random>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 1)
+//  
+// sort 관련 algorithm - 복잡도
+// partition
+// nth_element
+// partial_sort
+// sort
+// stable_sort
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+random_device rd;
+default_random_engine dre{ rd() };
+uniform_int_distribution<int> uidC{ 'A','Z' };
+uniform_int_distribution uidN{ 1,30 };
+
+int main()
+{
+	save("FileName.cpp");
+
+	struct Dog
+	{
+		char c = uidC(dre);
+		int n{ uidN(dre) };
+	};
+
+	array<Dog, 100> dogs;
+
+	//문제 dogs를 글자 오름차순으로 정렬
+
+
+	//sort(dogs.begin(), dogs.end(), [](const Dog& a, const Dog& b) {return a.c < b.c; });
+	ranges::sort(dogs, {}, & Dog::c);
+	ranges::stable_sort(dogs, {}, & Dog::n);	//동등한 것들의 순서가 유지된다
+
+	cout << endl;
+	for (auto [글자, 숫자] : dogs)
+		cout << "\t" << 글자 << " - " << 숫자 << endl;;
+	
+}

@@ -59,6 +59,7 @@ my_copy(s.begin(), s.end(), back_inserter(v));	반복자 어댑터로 size를 �
 vector 정렬되어 있다면 binary_search로 찾아야 한다 find는 느리다
 
 모두  public이면 struct (c++에서)
+for (auto [글자, 숫자] : dogs) -> 구조화된 바인딩
 
 벡터는 random_access가 가능해서 접근시간이 항상 동일하다
 그래서 정렬된 벡터를 이전검색으로 찾으면 set보다 빠를 수 있다
@@ -70,6 +71,7 @@ accumulate(시작주소,끝주소,초기값(자료형))   3번째 인자의 자�
 max_element()
 lexicographical_compare()
 unique() 중복원소 제거
+reduce - accumulate를 병렬로 처리
 
 
 
