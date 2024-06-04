@@ -5399,3 +5399,185 @@ int main()
 		cout << "\t" << 글자 << " - " << 숫자 << endl;;
 	
 }
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-04 화요일 오후 4:41:44 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 2)
+//  
+// 반복자간의 거리를 재는 distance 함수를 잘 알아본다
+// c++20 concept / range
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+template <class 반복자>
+
+long long my_distance(반복자 b, 반복자 e)
+{
+	//만일 random access 반복자라면
+	// return e-b
+	//아니라면
+	//if (typeid(iterator_traits<반복자>::iterator_category).name() == typeid(random_access_iterator_tag).name())
+	//if (is_same<typename iterator_traits<반복자>::iterator_category, random_access_iterator_tag>::value)
+
+	// c++17부터는 constexpr if로 선택적 소스코드확장 가능
+	if constexpr(is_same_v<typename iterator_traits<반복자>::iterator_category, random_access_iterator_tag>)
+		return e - b;
+
+	long long dis = 0;
+	while (b != e)
+	{
+		++b;
+		++dis;
+	}
+	return dis;
+}
+
+
+int main()
+{
+	save("FileName.cpp");
+	list<int> v{ 1,2,3,4,5 };
+  	
+	
+	auto p = v.begin();
+	--p;
+	if (p == v.end())
+		cout << "이중연결리스트";
+	//distance 함수로 반복자간의 거리를 잰다
+
+	cout << my_distance(v.end(), v.begin()) << endl;
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-04 화요일 오후 4:52:44 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 2)
+//  
+// 반복자간의 거리를 재는 distance 함수를 잘 알아본다
+// c++20 concept / range
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+template<class T>
+
+T add(T a, T b)
+{
+	return a + b;
+}
+
+
+int main()
+{
+	//문제 함수 템플릿 add를 만들어라
+	save("FileName.cpp");
+	cout << add(1, 2) << endl;
+	cout << add(1.1, 2.2) << endl;
+	cout << add("2024년"s, "6월4일"s) << endl;		//템플릿에게 의도를 전달해줘야 한다
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-04 화요일 오후 4:59:37 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <list>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 2)
+//  
+// 반복자간의 거리를 재는 distance 함수를 잘 알아본다
+// c++20 concept / range
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+template<class T>
+concept 숫자만 = is_integral_v<T> or is_floating_point_v<T>;
+
+template<숫자만 T>
+T add(T a, T b)
+{
+	return a + b;
+}
+
+
+int main()
+{
+	//문제 함수 템플릿 add를 만들어라
+	save("FileName.cpp");
+	cout << add(1, 2) << endl;
+	cout << add(1.1, 2.2) << endl;
+	//cout << add("2024년", "6월4일") << endl;		//템플릿에게 의도를 전달해줘야 한다
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-04 화요일 오후 5:20:36 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (14주 2)
+//  
+// 반복자간의 거리를 재는 distance 함수를 잘 알아본다
+// c++20 concept / range
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+template<class T>
+concept 숫자만 = is_integral_v<T> or is_floating_point_v<T>;
+
+template<숫자만 T>
+T add(T a, T b)
+{
+	return a + b;
+}
+
+
+int main()
+{
+	//문제 함수 템플릿 add를 만들어라
+	save("FileName.cpp");
+	list<int> list{ 1,2,3 };
+	//ranges::sort(list.begin(),list.end();
+
+}

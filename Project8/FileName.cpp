@@ -1,52 +1,37 @@
 #include <array>
 #include <algorithm>
-#include <numeric>
-#include <print>
-#include <thread>
-#include <random>
+#include <vector>
+#include <list>
 #include <ranges>
 #include "String.h"
 #include "save.h"
 
 //-----------------------------------------------------------------
-// 2024.04.30 1학기 stl				                        (14주 1)
+// 2024.04.30 1학기 stl				                        (14주 2)
 //  
-// sort 관련 algorithm - 복잡도
-// partition
-// nth_element
-// partial_sort
-// sort
-// stable_sort
+// 반복자간의 거리를 재는 distance 함수를 잘 알아본다
+// c++20 concept / range
 //-----------------------------------------------------------------
 
 extern bool 관찰;
 
-random_device rd;
-default_random_engine dre{ rd() };
-uniform_int_distribution<int> uidC{ 'A','Z' };
-uniform_int_distribution uidN{ 1,30 };
+
+
+template<class T>
+concept 숫자만 = is_integral_v<T> or is_floating_point_v<T>;
+
+template<숫자만 T>
+T add(T a, T b)
+{
+	return a + b;
+}
+
 
 int main()
 {
-	save("FileName.cpp");
+	//문제 함수 템플릿 add를 만들어라
+	//save("FileName.cpp");
+	list<int> list{ 1,2,3 };
+	ranges::sort(list.begin(),list.end();
 
-	struct Dog
-	{
-		char c = uidC(dre);
-		int n{ uidN(dre) };
-	};
-
-	array<Dog, 100> dogs;
-
-	//문제 dogs를 글자 오름차순으로 정렬
-
-
-	//sort(dogs.begin(), dogs.end(), [](const Dog& a, const Dog& b) {return a.c < b.c; });
-	ranges::sort(dogs, {}, & Dog::c);
-	ranges::stable_sort(dogs, {}, & Dog::n);	//동등한 것들의 순서가 유지된다
-
-	cout << endl;
-	for (auto [글자, 숫자] : dogs)
-		cout << "\t" << 글자 << " - " << 숫자 << endl;;
-	
 }
