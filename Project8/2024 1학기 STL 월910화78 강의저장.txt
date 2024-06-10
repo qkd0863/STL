@@ -5581,3 +5581,324 @@ int main()
 	//ranges::sort(list.begin(),list.end();
 
 }
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-10 월요일 오후 5:45:54 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <print>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (15주 1)
+//  
+// c++20 range
+// - [begin, end)
+// - begin + size
+// - [begin, predicate)
+// - [begin, ...)   무한
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre;
+
+template<class T>
+concept 숫자만 = is_integral_v<T> or is_floating_point_v<T>;
+
+template<숫자만 T>
+T add(T a, T b)
+{
+	return a + b;
+}
+
+
+int main()
+{
+	save("FileName.cpp");
+
+	vector<int> v(100);
+
+	//ranges::iota(v.begin(),v.end(), 1);
+	ranges::iota(v, 1);		// constrained-algorithm
+							// c++20 concept으로 작성한 함수
+
+	ranges::shuffle(v, dre);
+
+	ranges::sort(v);
+		
+	for (int num : views::counted(v.begin(), 20))
+		cout << num << endl;
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-10 월요일 오후 5:50:28 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <print>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (15주 1)
+//  
+// c++20 range
+// - [begin, end)
+// - begin + size
+// - [begin, predicate)
+// - [begin, ...)   무한
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre;
+
+template<class T>
+concept 숫자만 = is_integral_v<T> or is_floating_point_v<T>;
+
+template<숫자만 T>
+T add(T a, T b)
+{
+	return a + b;
+}
+
+
+int main()
+{
+	save("FileName.cpp");
+
+	vector<int> v(100);
+
+	//ranges::iota(v.begin(),v.end(), 1);
+	ranges::iota(v, 1);		// constrained-algorithm
+							// c++20 concept으로 작성한 함수
+
+	ranges::shuffle(v, dre);
+
+	ranges::sort(v.begin(),v.begin()+20);
+		
+	for (int num : views::filter(v, [](int n) {return n & 1; }))
+		cout << num << endl;
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-10 월요일 오후 6:22:13 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <print>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (15주 1)
+//  
+// c++20 range
+// - [begin, end)
+// - begin + size
+// - [begin, predicate)
+// - [begin, ...)   무한
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+default_random_engine dre;
+uniform_int_distribution<int> uidC{ 'a','z' };
+uniform_int_distribution uid{ 1,100 };
+
+
+// c++20 ranges 라이브러리
+// 기존 알고리즘을 다 새로 작성함
+// -c++20 concept을 사용하여 인자를 제약하였다
+// -Projection 과 pointer to member를 사용할 수 있다
+// -더 풍부한 정보를 담는 return 값 제공
+
+
+struct Dog
+{
+	char c = uidC(dre);
+	int n{ uid(dre) };
+};
+
+
+int main()
+{
+	save("FileName.cpp");
+
+	vector<Dog> dogs(100);
+
+	// 두 번째 인자 {} -> 디폴트 정렬기준 -> less<>
+	// less <-> greater
+	ranges::sort(dogs, greater<char>{}, & Dog::c);
+
+
+	for (auto [글자, 숫자] : dogs)
+		cout << 글자 << " - " << 숫자 << endl;
+
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-10 월요일 오후 6:30:19 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <print>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (15주 1)
+//  
+// c++20 range
+// - [begin, end)
+// - begin + size
+// - [begin, predicate)
+// - [begin, ...)   무한
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+
+int main()
+{
+	save("FileName.cpp");
+
+	// 소수(prime number)를 출력하라
+
+
+	for (int num : ranges::views::iota(1) | views::drop(100) | views::take(1000) | views::reverse | views::filter([](int n) {return n & 1; }))
+		print("{} ", num);
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-10 월요일 오후 6:41:23 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <print>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (15주 1)
+//  
+// c++20 range
+// - [begin, end)
+// - begin + size
+// - [begin, predicate)
+// - [begin, ...)   무한
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()
+{
+	save("FileName.cpp");
+
+	// 100000 보다 큰 소수(prime number)를 출력하라
+
+	auto 소수 = [](int n)
+		{
+			if (n <= 1)
+				return false;
+
+			for (int i = 2; i < n; i++) {
+
+				if (n % i == 0)
+				{//i가 n의 약수라면 소수가 아니므로 false return
+					return false;
+				}
+			}
+			//2 ~ n-1까지 약수가 없다면 소수이므로, true return
+			return true;
+		};
+
+
+	for (int num : ranges::views::iota(100000) | views::filter(소수) | views::take(100) | views::reverse)
+		print("{} ", num);
+
+}
+
+
+====================================================================================================
+FileName.cpp, 저장시간: 2024-06-10 월요일 오후 7:08:08 
+====================================================================================================
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <print>
+#include <list>
+#include <ranges>
+#include "String.h"
+#include "save.h"
+
+//-----------------------------------------------------------------
+// 2024.04.30 1학기 stl				                        (15주 1)
+//  
+// c++20 range
+// - [begin, end)
+// - begin + size
+// - [begin, predicate)
+// - [begin, ...)   무한
+//-----------------------------------------------------------------
+
+extern bool 관찰;
+
+
+
+int main()
+{
+	save("FileName.cpp");
+
+	vector<int>v;
+
+	// ADL(argument dependent lookup) 기능이 작동하지 않도록
+	// Eric Niebler
+	find(v.begin(), v.end(), 3);
+	ranges::find(v.begin(), v.end(), 3);
+
+
+}

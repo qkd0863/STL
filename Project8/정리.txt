@@ -48,6 +48,7 @@ iterator(반복자) 포인터를 일반화 한것
 
 l - value	(loaction value)
 value category 에 대해 알아보자
+느긋한 계산법 에 대해 알아보자
 
 함수 오버로딩은 const의 유무로 가능하다
 void f()
