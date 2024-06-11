@@ -63,7 +63,7 @@ vector 정렬되어 있다면 binary_search로 찾아야 한다 find는 느리�
 for (auto [글자, 숫자] : dogs) -> 구조화된 바인딩
 
 벡터는 random_access가 가능해서 접근시간이 항상 동일하다
-그래서 정렬된 벡터를 이전검색으로 찾으면 set보다 빠를 수 있다
+그래서 정렬된 벡터를 이진검색으로 찾으면 set보다 빠를 수 있다
 이걸 container adaptor 로 만든게 flat-set
 
 iota(시작주소, 끝주소, 초기값)	1씩증가시키며 채운다
